@@ -1,19 +1,13 @@
 /* ---- Custom Theme for Shivang Bhatt's Website ---- */
+/* ---- Blue Ocean Theme ---- */
 
-/* Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 /* ---- Animations ---- */
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
@@ -22,19 +16,8 @@
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes gradientShift {
@@ -43,12 +26,13 @@
   100% { background-position: 0% 50%; }
 }
 
-/* ---- Base Styles ---- */
+/* ---- Base ---- */
 
 body {
   font-family: 'Inter', sans-serif;
-  color: #2c2c2c;
-  background-color: #f9f9fb;
+  color: #1e293b;
+  background: linear-gradient(180deg, #f0f7ff 0%, #e8f1fb 50%, #f0f7ff 100%);
+  min-height: 100vh;
 }
 
 /* ---- Navbar ---- */
@@ -56,12 +40,14 @@ body {
 .navbar {
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #0c2d6b, #1a56db) !important;
+  box-shadow: 0 4px 20px rgba(12, 45, 107, 0.25);
   animation: fadeIn 0.8s ease-out;
 }
 
 .navbar-brand {
   transition: transform 0.3s ease;
+  color: #fff !important;
 }
 
 .navbar-brand:hover {
@@ -70,7 +56,13 @@ body {
 
 .nav-link {
   position: relative;
+  color: #c5d8f0 !important;
   transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #fff !important;
+  transform: translateY(-2px);
 }
 
 .nav-link::after {
@@ -80,7 +72,7 @@ body {
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #533483, #0f3460);
+  background: #60a5fa;
   transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -89,35 +81,37 @@ body {
   left: 10%;
 }
 
-.nav-link:hover {
-  transform: translateY(-2px);
-}
-
-/* Social icons in navbar */
 .navbar .bi {
+  color: #c5d8f0 !important;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .navbar .bi:hover {
   transform: scale(1.3) rotate(5deg);
-  color: #533483 !important;
+  color: #60a5fa !important;
 }
 
 /* ---- Headings ---- */
 
 h1, h2, h3 {
-  color: #1a1a2e;
   font-weight: 700;
 }
 
 h1 {
   font-size: 2.2rem;
-  margin-bottom: 0.3rem;
+  color: #0c2d6b;
   animation: fadeInUp 0.8s ease-out;
 }
 
 h2 {
+  color: #1a56db;
   animation: slideInLeft 0.6s ease-out;
+  padding-bottom: 0.4rem;
+  border-bottom: 3px solid #dbeafe;
+}
+
+h3 {
+  color: #1e40af;
 }
 
 /* ---- Profile Image ---- */
@@ -128,8 +122,8 @@ h2 {
   width: 200px;
   height: 200px;
   object-fit: cover;
-  border: 4px solid #1a1a2e;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  border: 4px solid #1a56db;
+  box-shadow: 0 4px 25px rgba(26, 86, 219, 0.25);
   animation: fadeInUp 1s ease-out;
   transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
 }
@@ -137,23 +131,25 @@ h2 {
 .about-image img:hover,
 .quarto-about-trestles .about-image img:hover {
   transform: scale(1.08) rotate(3deg);
-  box-shadow: 0 8px 30px rgba(83, 52, 131, 0.3);
-  border-color: #533483;
+  box-shadow: 0 8px 35px rgba(26, 86, 219, 0.35);
+  border-color: #60a5fa;
 }
 
-/* ---- About Page Links/Buttons ---- */
+/* ---- About Page Links ---- */
 
 .about-links a,
 .quarto-about-trestles .about-link {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  border: 2px solid #1a56db !important;
+  color: #1a56db !important;
+  transition: all 0.3s ease;
   animation: fadeInUp 1.2s ease-out;
 }
 
 .about-links a:hover,
 .quarto-about-trestles .about-link:hover {
   transform: translateY(-3px);
-  box-shadow: 0 4px 15px rgba(83, 52, 131, 0.2);
-  background-color: #1a1a2e !important;
+  box-shadow: 0 4px 15px rgba(26, 86, 219, 0.25);
+  background-color: #1a56db !important;
   color: #fff !important;
 }
 
@@ -161,32 +157,30 @@ h2 {
 
 .project-card {
   background: #ffffff;
-  border-radius: 12px;
-  padding: 1.5rem;
+  border-radius: 14px;
+  padding: 1.8rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 2px 12px rgba(26, 86, 219, 0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-left 0.3s ease;
   animation: fadeInUp 0.8s ease-out;
-  border-left: 4px solid transparent;
+  border-left: 4px solid #dbeafe;
 }
 
 .project-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  border-left: 4px solid #533483;
+  box-shadow: 0 12px 35px rgba(26, 86, 219, 0.15);
+  border-left: 4px solid #1a56db;
 }
 
 .project-card h3 {
   margin-top: 0;
-  color: #16213e;
   transition: color 0.3s ease;
 }
 
 .project-card:hover h3 {
-  color: #533483;
+  color: #1a56db;
 }
 
-/* Staggered animation for multiple cards */
 .project-card:nth-child(1) { animation-delay: 0.1s; }
 .project-card:nth-child(2) { animation-delay: 0.25s; }
 .project-card:nth-child(3) { animation-delay: 0.4s; }
@@ -196,19 +190,19 @@ h2 {
 
 .tag {
   display: inline-block;
-  background-color: #e8eaf6;
-  color: #1a1a2e;
-  padding: 0.2rem 0.7rem;
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.8rem;
   margin-right: 0.4rem;
   margin-bottom: 0.4rem;
   font-weight: 500;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .tag:hover {
-  background-color: #1a1a2e;
+  background-color: #1a56db;
   color: #fff;
   transform: translateY(-2px) scale(1.05);
 }
@@ -216,20 +210,20 @@ h2 {
 /* ---- Links ---- */
 
 a {
-  color: #0f3460;
+  color: #1a56db;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #533483;
+  color: #3b82f6;
 }
 
 /* ---- Date Range ---- */
 
 .date-range {
   display: inline-block;
-  color: #777;
+  color: #64748b;
   font-size: 0.85rem;
   font-style: italic;
   margin-bottom: 0.3rem;
@@ -244,37 +238,77 @@ a:hover {
 }
 
 .resume-header p {
-  color: #555;
+  color: #64748b;
   font-size: 0.95rem;
 }
 
+/* Resume section cards */
+.resume-section {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 12px rgba(26, 86, 219, 0.08);
+  animation: fadeInUp 0.7s ease-out;
+  border-left: 4px solid #dbeafe;
+  transition: border-left 0.3s ease, box-shadow 0.3s ease;
+}
+
+.resume-section:hover {
+  border-left: 4px solid #1a56db;
+  box-shadow: 0 6px 20px rgba(26, 86, 219, 0.12);
+}
+
+/* Resume experience entry */
+.resume-entry {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.3s ease;
+}
+
+.resume-entry:last-child {
+  border-bottom: none;
+}
+
+.resume-entry:hover {
+  background-color: #f8faff;
+  border-radius: 8px;
+  padding-left: 0.5rem;
+}
+
+.resume-entry h3 {
+  margin-bottom: 0.2rem;
+  font-size: 1.15rem;
+}
+
+/* Download button */
 .download-btn {
   display: inline-block;
-  background: linear-gradient(135deg, #1a1a2e, #533483);
+  background: linear-gradient(135deg, #0c2d6b, #1a56db, #3b82f6);
   background-size: 200% 200%;
   color: #fff !important;
-  padding: 0.6rem 1.4rem;
-  border-radius: 8px;
+  padding: 0.6rem 1.6rem;
+  border-radius: 10px;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none !important;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: gradientShift 3s ease infinite;
+  animation: gradientShift 4s ease infinite;
 }
 
 .download-btn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 20px rgba(83, 52, 131, 0.3);
+  box-shadow: 0 8px 25px rgba(26, 86, 219, 0.3);
 }
 
-/* ---- Scroll Reveal (content fades in as you scroll) ---- */
+/* ---- Scroll animations ---- */
 
 .quarto-about-trestles .about-contents,
 #quarto-content {
   animation: fadeInUp 0.6s ease-out;
 }
 
-/* ---- List Items Hover ---- */
+/* ---- List Items ---- */
 
 li {
   transition: transform 0.2s ease;
@@ -288,7 +322,14 @@ li:hover {
 
 .quarto-footer {
   margin-top: 3rem;
-  border-top: 1px solid #ddd;
+  border-top: 2px solid #dbeafe;
   padding-top: 1rem;
   animation: fadeIn 1s ease-out;
+}
+
+/* ---- Selection Color ---- */
+
+::selection {
+  background: #1a56db;
+  color: #fff;
 }

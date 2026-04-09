@@ -1,12 +1,11 @@
 project:
   type: website
-  output-dir: docs
 
 website:
   title: "Shivang Bhatt"
   navbar:
-    background: "#1a1a2e"
-    foreground: "#e0e0e0"
+    background: "#0c2d6b"
+    foreground: "#ffffff"
     left:
       - href: index.qmd
         text: About

@@ -20,20 +20,5 @@ Deployed an ML model to analyze clickstream data of 1 million users, identifying
 [Machine Learning]{.tag} [Python]{.tag} [Causal Inference]{.tag} [Clickstream Data]{.tag}
 :::
 
-::: {.project-card}
-### GTM Revenue Dashboards — NuSummit Technologies
-[2023 – 2025]{.date-range}
-
-Designed and automated GTM & revenue dashboards for enterprise clients in financial services and insurance. Built forecasting and pipeline models using Salesforce data, improving campaign ROI by 20% and conversion rates by 12%.
-
-[SQL]{.tag} [Snowflake]{.tag} [Tableau]{.tag} [AWS]{.tag} [Salesforce]{.tag}
-:::
-
-::: {.project-card}
-### Multi-Touch Attribution Framework — BIA
-[2021 – 2023]{.date-range}
-
-Developed a Multi-Touch Attribution framework to determine ROAS and guide channel-level spend decisions. Optimized SQL queries reducing dashboard latency by 70%.
-
 [SQL]{.tag} [Snowflake]{.tag} [HubSpot]{.tag} [A/B Testing]{.tag}
 :::
