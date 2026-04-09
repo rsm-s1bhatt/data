@@ -35,11 +35,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-ac077c1e730dfeb5e42400639d17284e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b9b84d0e910fe4cf09b1f598c0329206.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-befd6bcda6c1827e4373ae4c35982b32.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,10 +70,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="custom.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -126,66 +127,420 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
-    <img src="profile_pic.jpg" class="about-image
-  round " style="height: 20em; width: 20em;">
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Shivang Bhatt</h1>
-<p class="subtitle lead">Welcome to my website!</p>
-</div>
-<div class="quarto-title-meta">
-  </div>
-</header>
-    <div class="about-links">
-  <a href="mailto:s1bhatt@ucsd.edu" class="about-link" rel="" target="">
-    <i class="bi bi-envelope"></i>
-     <span class="about-link-text">Email</span>
-  </a>
-  <a href="https://www.linkedin.com/in/shivang-bhatt-data" class="about-link" rel="" target="">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://x.com/swwangg" class="about-link" rel="" target="">
-    <i class="bi bi-twitter-x"></i>
-     <span class="about-link-text">X / Twitter</span>
-  </a>
-</div>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-<section id="about-me" class="level2">
-<h2 data-anchor-id="about-me">About Me</h2>
-<p>Hi! I’m Shivang — a Business Analytics graduate student at UC San Diego’s Rady School of Management. I specialize in business intelligence, revenue analytics, and building data-driven solutions for enterprise clients.</p>
-<p>When I’m not crunching numbers, you’ll find me watching soccer, chasing sunsets, or debating who’s winning the next World Cup.</p>
-</section>
-<section id="education" class="level2">
-<h2 data-anchor-id="education">Education</h2>
-<p><strong>University of California, San Diego</strong> | M.S. in Business Analytics (Rady Scholar) | Dec 2026</p>
-<p><strong>Wilson College, University of Mumbai</strong> | B.S. in Management Studies (Business Statistics) | Oct 2020</p>
-</section>
-<section id="interests" class="level2">
-<h2 data-anchor-id="interests">Interests</h2>
-<ul>
-<li>Sports analytics</li>
-<li>Sunsets &amp; the outdoors</li>
-<li>GTM strategy &amp; revenue optimization</li>
-<li>Machine learning &amp; predictive modeling</li>
-<li>Dashboard automation &amp; data storytelling</li>
-</ul>
+<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-</section>
-</main></div>
+
+
+<style>
+  /* Hero Section */
+  .hero {
+    background: linear-gradient(135deg, #0c2d6b 0%, #1a56db 50%, #3b82f6 100%);
+    color: #fff;
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: drift 20s linear infinite;
+  }
+
+  @keyframes drift {
+    from { transform: translate(0, 0); }
+    to { transform: translate(30px, 30px); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .hero-img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    margin-bottom: 1.5rem;
+    animation: heroFadeIn 1s ease-out;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .hero-img:hover {
+    transform: scale(1.08) rotate(3deg);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: #fff;
+    border: none;
+    animation: heroFadeIn 1s ease-out 0.2s both;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: #bfdbfe;
+    margin-bottom: 1.5rem;
+    animation: heroFadeIn 1s ease-out 0.4s both;
+  }
+
+  /* Rotating tagline */
+  .rotating-wrapper {
+    height: 2rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    animation: heroFadeIn 1s ease-out 0.6s both;
+  }
+
+  .rotating-text {
+    display: flex;
+    flex-direction: column;
+    animation: rotateWords 9s ease-in-out infinite;
+  }
+
+  .rotating-text span {
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #60a5fa;
+  }
+
+  @keyframes rotateWords {
+    0%, 20% { transform: translateY(0); }
+    25%, 45% { transform: translateY(-2rem); }
+    50%, 70% { transform: translateY(-4rem); }
+    75%, 95% { transform: translateY(-6rem); }
+    100% { transform: translateY(0); }
+  }
+
+  @keyframes heroFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-links a {
+    display: inline-block;
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.4);
+    padding: 0.5rem 1.2rem;
+    border-radius: 10px;
+    margin: 0 0.4rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    animation: heroFadeIn 1s ease-out 0.8s both;
+  }
+
+  .hero-links a:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+
+  /* Stats Section */
+  .stats-section {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 3rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .stat-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    min-width: 180px;
+    flex: 1;
+    box-shadow: 0 2px 12px rgba(26, 86, 219, 0.08);
+    border-top: 4px solid #dbeafe;
+    transition: all 0.4s ease;
+    animation: heroFadeIn 0.8s ease-out both;
+  }
+
+  .stat-card:nth-child(1) { animation-delay: 0.2s; }
+  .stat-card:nth-child(2) { animation-delay: 0.4s; }
+  .stat-card:nth-child(3) { animation-delay: 0.6s; }
+  .stat-card:nth-child(4) { animation-delay: 0.8s; }
+
+  .stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(26, 86, 219, 0.15);
+    border-top: 4px solid #1a56db;
+  }
+
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a56db;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+  }
+
+  /* About Section */
+  .about-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 2rem 3rem;
+  }
+
+  .about-section h2 {
+    color: #1a56db;
+    font-weight: 700;
+    border-bottom: 3px solid #dbeafe;
+    padding-bottom: 0.4rem;
+  }
+
+  /* Skills visualization */
+  .skills-viz {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+  }
+
+  .skill-bar-wrapper {
+    margin-bottom: 1rem;
+  }
+
+  .skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #1e293b;
+  }
+
+  .skill-bar-bg {
+    background: #dbeafe;
+    border-radius: 10px;
+    height: 12px;
+    overflow: hidden;
+  }
+
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #0c2d6b, #1a56db, #3b82f6);
+    width: 0%;
+    transition: width 1.5s ease-out;
+  }
+
+  /* Interests pills */
+  .interest-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .interest-pill {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0.4rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .interest-pill:hover {
+    background: #1a56db;
+    color: #fff;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .interest-pill .emoji {
+    margin-right: 0.3rem;
+  }
+</style>
+
+<!-- Hero Section -->
+<div class="hero">
+  <div class="hero-content">
+    <img src="profile_pic.jpg" alt="Shivang Bhatt" class="hero-img">
+    <h1>Shivang Bhatt</h1>
+    <p class="hero-subtitle">M.S. Business Analytics @ UC San Diego (Rady)</p>
+    <div class="rotating-wrapper">
+      <div class="rotating-text">
+        <span>📊 BI &amp; Revenue Analytics</span>
+        <span>⚽ Soccer Fanatic</span>
+        <span>🤖 Machine Learning Explorer</span>
+        <span>🌅 Sunset Chaser</span>
+      </div>
+    </div>
+    <div class="hero-links">
+      <a href="mailto:s1bhatt@ucsd.edu">✉ Email</a>
+      <a href="https://www.linkedin.com/in/shivang-bhatt-data" target="_blank">in LinkedIn</a>
+      <a href="https://x.com/swwangg" target="_blank">𝕏 Twitter</a>
+      <a href="resume.html">📄 Resume</a>
+    </div>
+  </div>
 </div>
- <!-- /main -->
+
+<!-- Stats Section -->
+<div class="stats-section">
+  <div class="stat-card">
+    <span class="stat-number" id="stat-years">0</span>
+    <span class="stat-label">Years Experience</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number" id="stat-projects">0</span>
+    <span class="stat-label">Projects Delivered</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number" id="stat-tools">0</span>
+    <span class="stat-label">Tools &amp; Technologies</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number" id="stat-roi">0%</span>
+    <span class="stat-label">Best Campaign ROI Lift</span>
+  </div>
+</div>
+
+<!-- Skills Visualization -->
+<div class="skills-viz">
+  <h2 style="color: #1a56db; border-bottom: 3px solid #dbeafe; padding-bottom: 0.4rem;" class="anchored">Skills</h2>
+
+  <div class="skill-bar-wrapper">
+    <div class="skill-bar-label"><span>SQL &amp; Snowflake</span><span>95%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="95"></div></div>
+  </div>
+  <div class="skill-bar-wrapper">
+    <div class="skill-bar-label"><span>Python (Pandas, NumPy, Seaborn)</span><span>90%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="90"></div></div>
+  </div>
+  <div class="skill-bar-wrapper">
+    <div class="skill-bar-label"><span>Tableau &amp; Power BI</span><span>92%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="92"></div></div>
+  </div>
+  <div class="skill-bar-wrapper">
+    <div class="skill-bar-label"><span>AWS (S3, Redshift, Glue)</span><span>80%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80"></div></div>
+  </div>
+  <div class="skill-bar-wrapper">
+    <div class="skill-bar-label"><span>Machine Learning (XGBoost, RF)</span><span>82%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="82"></div></div>
+  </div>
+  <div class="skill-bar-wrapper">
+    <div class="skill-bar-label"><span>Salesforce &amp; HubSpot</span><span>88%</span></div>
+    <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="88"></div></div>
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="about-section">
+  <h2 class="anchored">About Me</h2>
+  <p>Hi! I'm Shivang — a Business Analytics graduate student at UC San Diego's Rady School of Management. I specialize in business intelligence, revenue analytics, and building data-driven solutions for enterprise clients.</p>
+  <p>When I'm not crunching numbers, you'll find me watching soccer, chasing sunsets, or debating who's winning the next World Cup.</p>
+
+  <h2 class="anchored">Interests</h2>
+  <div class="interest-pills">
+    <span class="interest-pill"><span class="emoji">⚽</span>Soccer</span>
+    <span class="interest-pill"><span class="emoji">🌅</span>Sunsets</span>
+    <span class="interest-pill"><span class="emoji">📊</span>GTM Strategy</span>
+    <span class="interest-pill"><span class="emoji">🤖</span>Machine Learning</span>
+    <span class="interest-pill"><span class="emoji">📈</span>Revenue Analytics</span>
+    <span class="interest-pill"><span class="emoji">🏆</span>Sports Analytics</span>
+    <span class="interest-pill"><span class="emoji">☁️</span>Cloud &amp; Data Engineering</span>
+  </div>
+
+  <h2 class="anchored">Education</h2>
+  <p><strong>University of California, San Diego</strong> | M.S. in Business Analytics (Rady Scholar) | Dec 2026</p>
+  <p><strong>Wilson College, University of Mumbai</strong> | B.S. in Management Studies (Business Statistics) | Oct 2020</p>
+</div>
+
+<!-- Animated Counter Script -->
+<script>
+function animateCounter(id, target, suffix = '') {
+  let current = 0;
+  const step = Math.max(1, Math.floor(target / 60));
+  const el = document.getElementById(id);
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      current = target;
+      clearInterval(interval);
+    }
+    el.textContent = current + suffix;
+  }, 30);
+}
+
+// Trigger counters when stats section is visible
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter('stat-years', 4, '+');
+      animateCounter('stat-projects', 10, '+');
+      animateCounter('stat-tools', 15, '+');
+      animateCounter('stat-roi', 20);
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+
+observer.observe(document.querySelector('.stats-section'));
+
+// Animate skill bars on scroll
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.skill-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+      skillObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+
+skillObserver.observe(document.querySelector('.skills-viz'));
+</script>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

@@ -4,28 +4,7 @@
     "href": "index.html",
     "title": "Shivang Bhatt",
     "section": "",
-    "text": "Hi! I’m Shivang — a Business Analytics graduate student at UC San Diego’s Rady School of Management. I specialize in business intelligence, revenue analytics, and building data-driven solutions for enterprise clients.\nWhen I’m not crunching numbers, you’ll find me watching soccer, chasing sunsets, or debating who’s winning the next World Cup."
-  },
-  {
-    "objectID": "index.html#about-me",
-    "href": "index.html#about-me",
-    "title": "Shivang Bhatt",
-    "section": "",
-    "text": "Hi! I’m Shivang — a Business Analytics graduate student at UC San Diego’s Rady School of Management. I specialize in business intelligence, revenue analytics, and building data-driven solutions for enterprise clients.\nWhen I’m not crunching numbers, you’ll find me watching soccer, chasing sunsets, or debating who’s winning the next World Cup."
-  },
-  {
-    "objectID": "index.html#education",
-    "href": "index.html#education",
-    "title": "Shivang Bhatt",
-    "section": "Education",
-    "text": "Education\nUniversity of California, San Diego | M.S. in Business Analytics (Rady Scholar) | Dec 2026\nWilson College, University of Mumbai | B.S. in Management Studies (Business Statistics) | Oct 2020"
-  },
-  {
-    "objectID": "index.html#interests",
-    "href": "index.html#interests",
-    "title": "Shivang Bhatt",
-    "section": "Interests",
-    "text": "Interests\n\nSports analytics\nSunsets & the outdoors\nGTM strategy & revenue optimization\nMachine learning & predictive modeling\nDashboard automation & data storytelling"
+    "text": "Shivang Bhatt\n    M.S. Business Analytics @ UC San Diego (Rady)\n    \n      \n        📊 BI & Revenue Analytics\n        ⚽ Soccer Fanatic\n        🤖 Machine Learning Explorer\n        🌅 Sunset Chaser\n      \n    \n    \n      ✉ Email\n      in LinkedIn\n      𝕏 Twitter\n      📄 Resume\n    \n  \n\n\n\n\n  \n    0\n    Years Experience\n  \n  \n    0\n    Projects Delivered\n  \n  \n    0\n    Tools & Technologies\n  \n  \n    0%\n    Best Campaign ROI Lift\n  \n\n\n\n\n  Skills\n\n  \n    SQL & Snowflake95%\n    \n  \n  \n    Python (Pandas, NumPy, Seaborn)90%\n    \n  \n  \n    Tableau & Power BI92%\n    \n  \n  \n    AWS (S3, Redshift, Glue)80%\n    \n  \n  \n    Machine Learning (XGBoost, RF)82%\n    \n  \n  \n    Salesforce & HubSpot88%\n    \n  \n\n\n\n\n  About Me\n  Hi! I'm Shivang — a Business Analytics graduate student at UC San Diego's Rady School of Management. I specialize in business intelligence, revenue analytics, and building data-driven solutions for enterprise clients.\n  When I'm not crunching numbers, you'll find me watching soccer, chasing sunsets, or debating who's winning the next World Cup.\n\n  Interests\n  \n    ⚽Soccer\n    🌅Sunsets\n    📊GTM Strategy\n    🤖Machine Learning\n    📈Revenue Analytics\n    🏆Sports Analytics\n    ☁️Cloud & Data Engineering\n  \n\n  Education\n  University of California, San Diego | M.S. in Business Analytics (Rady Scholar) | Dec 2026\n  Wilson College, University of Mumbai | B.S. in Management Studies (Business Statistics) | Oct 2020"
   },
   {
     "objectID": "resume.html",
@@ -39,7 +18,7 @@
     "href": "resume.html#education",
     "title": "Resume",
     "section": "Education",
-    "text": "Education\nUniversity of California, San Diego | M.S. in Business Analytics (Rady Scholar) | Dec 2026\nCoursework: Customer Analytics, Big Data Analytics, Digital Transformation\nWilson College, University of Mumbai | B.S. in Management Studies (Business Statistics) | Oct 2020"
+    "text": "Education\n\nUniversity of California, San Diego\nM.S. in Business Analytics (Rady Scholar) · Dec 2026\nCoursework: Customer Analytics, Big Data Analytics, Digital Transformation\n\n\nWilson College, University of Mumbai\nB.S. in Management Studies (Business Statistics) · Oct 2020"
   },
   {
     "objectID": "resume.html#experience",
@@ -67,6 +46,6 @@
     "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "Market Sentiment & Brand Perception Analysis\nUCSD · January 2026\nAnalyzed Twitter and digital news sentiment to evaluate shifts in brand perception and consumer response. Found that trend-driven brands experienced faster and stronger short-term sentiment changes compared to established brands.\nPython NLP Sentiment Analysis Twitter API\n\n\nUp-Sell Ad Campaign for Intuit QuickBooks\nUCSD · December 2025\nDeployed an ML model to analyze clickstream data of 1 million users, identifying causal relationships between features and customer engagement. Informed a second-wave campaign that generated $380K in profit.\nMachine Learning Python Causal Inference Clickstream Data\n\n\nGTM Revenue Dashboards — NuSummit Technologies\n2023 – 2025\nDesigned and automated GTM & revenue dashboards for enterprise clients in financial services and insurance. Built forecasting and pipeline models using Salesforce data, improving campaign ROI by 20% and conversion rates by 12%.\nSQL Snowflake Tableau AWS Salesforce\n\n\nMulti-Touch Attribution Framework — BIA\n2021 – 2023\nDeveloped a Multi-Touch Attribution framework to determine ROAS and guide channel-level spend decisions. Optimized SQL queries reducing dashboard latency by 70%.\nSQL Snowflake HubSpot A/B Testing"
+    "text": "Market Sentiment & Brand Perception Analysis\nUCSD · January 2026\nAnalyzed Twitter and digital news sentiment to evaluate shifts in brand perception and consumer response. Found that trend-driven brands experienced faster and stronger short-term sentiment changes compared to established brands.\nPython NLP Sentiment Analysis Twitter API\n\n\nUp-Sell Ad Campaign for Intuit QuickBooks\nUCSD · December 2025\nDeployed an ML model to analyze clickstream data of 1 million users, identifying causal relationships between features and customer engagement. Informed a second-wave campaign that generated $380K in profit.\nMachine Learning Python Causal Inference Clickstream Data\n\nSQL Snowflake HubSpot A/B Testing :::"
   }
 ]
