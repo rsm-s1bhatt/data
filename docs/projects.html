@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Projects – Shivang Bhatt</title>
+<title>projects – Shivang Bhatt</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -127,45 +127,311 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Projects</h1></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Projects</h1>
+
+
+
+<style>
+  .projects-hero {
+    background: linear-gradient(135deg, #0c2d6b 0%, #1a56db 50%, #3b82f6 100%);
+    color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .projects-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: drift 20s linear infinite;
+  }
+
+  @keyframes drift {
+    from { transform: translate(0, 0); }
+    to { transform: translate(30px, 30px); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .projects-hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .projects-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    border: none;
+    margin-bottom: 0.3rem;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .projects-hero p {
+    color: #bfdbfe;
+    font-size: 1.05rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .projects-body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .project-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(26, 86, 219, 0.08);
+    border-left: 4px solid #dbeafe;
+    transition: all 0.4s ease;
+    animation: fadeInUp 0.7s ease-out both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, rgba(26, 86, 219, 0.04) 50%);
+    transition: all 0.4s ease;
+  }
+
+  .project-card:hover::after {
+    width: 120px; height: 120px;
+    background: linear-gradient(135deg, transparent 50%, rgba(26, 86, 219, 0.08) 50%);
+  }
+
+  .project-card:nth-child(1) { animation-delay: 0.1s; }
+  .project-card:nth-child(2) { animation-delay: 0.25s; }
+  .project-card:nth-child(3) { animation-delay: 0.4s; }
+  .project-card:nth-child(4) { animation-delay: 0.55s; }
+  .project-card:nth-child(5) { animation-delay: 0.7s; }
+  .project-card:nth-child(6) { animation-delay: 0.85s; }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(26, 86, 219, 0.15);
+    border-left: 4px solid #1a56db;
+  }
+
+  .project-card h3 {
+    color: #1e40af;
+    font-size: 1.2rem;
+    margin: 0 0 0.3rem 0;
+    transition: color 0.3s ease;
+  }
+
+  .project-card:hover h3 { color: #1a56db; }
+
+  .project-date {
+    color: #64748b;
+    font-size: 0.85rem;
+    font-style: italic;
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .project-card p {
+    color: #475569;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .project-impact {
+    background: #eff6ff;
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+  }
+
+  .project-impact:hover {
+    background: #1a56db;
+    color: #fff;
+    transform: scale(1.02);
+  }
+
+  .project-impact:hover .impact-number,
+  .project-impact:hover .impact-label { color: #fff; }
+
+  .impact-number {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a56db;
+    transition: color 0.3s ease;
+  }
+
+  .impact-label {
+    font-size: 0.85rem;
+    color: #475569;
+    transition: color 0.3s ease;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: #dbeafe;
+    color: #1e40af;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .tag:hover {
+    background-color: #1a56db;
+    color: #fff;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  .section-divider {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin: 2rem 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    animation: fadeInUp 0.6s ease-out both;
+  }
+</style>
+
+<!-- Projects Hero -->
+<div class="projects-hero">
+  <div class="projects-hero-content">
+    
+    <p>GTM analytics, customer targeting, uplift modeling &amp; growth experimentation</p>
+  </div>
 </div>
 
+<div class="projects-body">
 
+  <div class="section-divider">🎯 Targeting &amp; Growth</div>
 
-<div class="quarto-title-meta">
-
-    
-  
-    
+  <div class="project-card">
+    <h3 class="anchored">Up-Sell Ad Campaign for Intuit QuickBooks</h3>
+    <span class="project-date">UCSD · Customer Analytics · Dec 2025</span>
+    <p>Built an ML model on clickstream data of 1M users to identify causal relationships between product features and customer engagement. Used uplift modeling to inform a second-wave targeting campaign.</p>
+    <div class="project-impact">
+      <span class="impact-number">$380K</span>
+      <span class="impact-label">Profit generated from targeted second-wave campaign</span>
+    </div>
+    <span class="tag">Uplift Modeling</span><span class="tag">Causal Inference</span><span class="tag">Python</span><span class="tag">Clickstream</span><span class="tag">Campaign Optimization</span>
   </div>
-  
 
+  <div class="project-card">
+    <h3 class="anchored">Predicting Churn &amp; Design of Experiments</h3>
+    <span class="project-date">UCSD · Customer Analytics</span>
+    <p>Developed churn prediction models and designed experiments to test retention strategies. Applied A/B testing frameworks to measure the effectiveness of intervention tactics on at-risk customer segments.</p>
+    <div class="project-impact">
+      <span class="impact-number">🔬</span>
+      <span class="impact-label">Experimental design to validate retention strategies before full rollout</span>
+    </div>
+    <span class="tag">Churn Prediction</span><span class="tag">A/B Testing</span><span class="tag">Experiment Design</span><span class="tag">Python</span><span class="tag">Retention</span>
+  </div>
 
-</header>
+  <div class="project-card">
+    <h3 class="anchored">Personalization for Pentathlon</h3>
+    <span class="project-date">UCSD · Customer Analytics</span>
+    <p>Built personalized recommendation and targeting models to optimize customer engagement across multiple touchpoints. Leveraged customer segmentation to tailor messaging and offers for different user cohorts.</p>
+    <div class="project-impact">
+      <span class="impact-number">🎯</span>
+      <span class="impact-label">Multi-channel personalization across customer lifecycle</span>
+    </div>
+    <span class="tag">Personalization</span><span class="tag">Segmentation</span><span class="tag">Recommendation Systems</span><span class="tag">Python</span>
+  </div>
 
+  <div class="section-divider">📊 Measurement &amp; Attribution</div>
 
-<section id="market-sentiment-brand-perception-analysis" class="level3 project-card">
-<h3 class="anchored" data-anchor-id="market-sentiment-brand-perception-analysis">Market Sentiment &amp; Brand Perception Analysis</h3>
-<p><span class="date-range">UCSD · January 2026</span></p>
-<p>Analyzed Twitter and digital news sentiment to evaluate shifts in brand perception and consumer response. Found that trend-driven brands experienced faster and stronger short-term sentiment changes compared to established brands.</p>
-<p><span class="tag">Python</span> <span class="tag">NLP</span> <span class="tag">Sentiment Analysis</span> <span class="tag">Twitter API</span></p>
-</section>
-<section id="up-sell-ad-campaign-for-intuit-quickbooks" class="level3 project-card">
-<h3 class="anchored" data-anchor-id="up-sell-ad-campaign-for-intuit-quickbooks">Up-Sell Ad Campaign for Intuit QuickBooks</h3>
-<p><span class="date-range">UCSD · December 2025</span></p>
-<p>Deployed an ML model to analyze clickstream data of 1 million users, identifying causal relationships between features and customer engagement. Informed a second-wave campaign that generated $380K in profit.</p>
-<p><span class="tag">Machine Learning</span> <span class="tag">Python</span> <span class="tag">Causal Inference</span> <span class="tag">Clickstream Data</span></p>
-</section>
-<p><span class="tag">SQL</span> <span class="tag">Snowflake</span> <span class="tag">HubSpot</span> <span class="tag">A/B Testing</span> :::</p>
+  <div class="project-card">
+    <h3 class="anchored">Measuring Uplift for Creative Gaming</h3>
+    <span class="project-date">UCSD · Customer Analytics</span>
+    <p>Applied uplift modeling techniques to measure the incremental impact of creative ad variations on player acquisition and engagement in a gaming context. Quantified which creative elements drove true lift vs. organic conversion.</p>
+    <div class="project-impact">
+      <span class="impact-number">📈</span>
+      <span class="impact-label">Isolated true creative impact from organic conversion</span>
+    </div>
+    <span class="tag">Uplift Modeling</span><span class="tag">Incrementality</span><span class="tag">Creative Testing</span><span class="tag">Python</span>
+  </div>
+
+  <div class="project-card">
+    <h3 class="anchored">Market Sentiment &amp; Brand Perception Analysis</h3>
+    <span class="project-date">UCSD · Jan 2026</span>
+    <p>Analyzed Twitter and digital news sentiment to evaluate shifts in brand perception. Discovered that trend-driven brands experienced faster and stronger short-term sentiment changes compared to established brands — key insight for brand marketing teams.</p>
+    <div class="project-impact">
+      <span class="impact-number">🔍</span>
+      <span class="impact-label">Quantified sentiment velocity differences between brand archetypes</span>
+    </div>
+    <span class="tag">NLP</span><span class="tag">Sentiment Analysis</span><span class="tag">Brand Analytics</span><span class="tag">Twitter API</span><span class="tag">Python</span>
+  </div>
+
+  <div class="section-divider">💼 Professional — GTM &amp; Revenue Ops</div>
+
+  <div class="project-card">
+    <h3 class="anchored">GTM Revenue Dashboards &amp; Pipeline Forecasting — NuSummit</h3>
+    <span class="project-date">2023 – 2025</span>
+    <p>Led design of GTM &amp; revenue dashboards for enterprise clients in financial services. Built pipeline forecasting models in SQL/Snowflake from Salesforce data to track lead-to-close efficiency and improve quarterly revenue predictability.</p>
+    <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1rem;">
+      <div class="project-impact" style="flex: 1; min-width: 140px;">
+        <span class="impact-number">20%</span>
+        <span class="impact-label">Campaign ROI improvement</span>
+      </div>
+      <div class="project-impact" style="flex: 1; min-width: 140px;">
+        <span class="impact-number">12%</span>
+        <span class="impact-label">Conversion rate lift</span>
+      </div>
+    </div>
+    <span class="tag">SQL</span><span class="tag">Snowflake</span><span class="tag">Salesforce</span><span class="tag">Tableau</span><span class="tag">Pipeline Forecasting</span><span class="tag">AWS</span>
+  </div>
+
+  <div class="project-card">
+    <h3 class="anchored">Multi-Touch Attribution &amp; Channel Optimization — BIA</h3>
+    <span class="project-date">2021 – 2023</span>
+    <p>Developed a Multi-Touch Attribution framework to determine ROAS and guide channel-level spend decisions. Optimized SQL-based reporting and conducted funnel analysis and A/B testing in HubSpot and Salesforce.</p>
+    <div class="project-impact">
+      <span class="impact-number">70%</span>
+      <span class="impact-label">Dashboard latency reduction through query optimization</span>
+    </div>
+    <span class="tag">Multi-Touch Attribution</span><span class="tag">ROAS</span><span class="tag">SQL</span><span class="tag">HubSpot</span><span class="tag">A/B Testing</span>
+  </div>
+
+  <div class="project-card">
+    <h3 class="anchored">Fitech Case — End-to-End Customer Analytics</h3>
+    <span class="project-date">UCSD · Customer Analytics</span>
+    <p>Completed a comprehensive fintech case study integrating targeting, segmentation, churn prediction, and lifetime value modeling. Delivered a full-funnel analytics strategy from acquisition through retention.</p>
+    <div class="project-impact">
+      <span class="impact-number">🏦</span>
+      <span class="impact-label">Full-funnel GTM analytics strategy for a fintech product</span>
+    </div>
+    <span class="tag">Customer LTV</span><span class="tag">Segmentation</span><span class="tag">Churn</span><span class="tag">GTM Strategy</span><span class="tag">Python</span>
+  </div>
+
+</div>
 
 
 

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Resume – Shivang Bhatt</title>
+<title>resume – Shivang Bhatt</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -73,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -127,86 +127,283 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Resume</h1>
-</div>
+<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
+  .resume-hero {
+    background: linear-gradient(135deg, #0c2d6b 0%, #1a56db 50%, #3b82f6 100%);
+    color: #fff;
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .resume-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: drift 20s linear infinite;
+  }
+
+  @keyframes drift {
+    from { transform: translate(0, 0); }
+    to { transform: translate(30px, 30px); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .resume-hero-content { position: relative; z-index: 1; }
+
+  .resume-hero h1 {
+    font-size: 2.5rem; font-weight: 700; margin-bottom: 0.3rem;
+    color: #fff; border: none; animation: fadeInUp 0.8s ease-out;
+  }
+
+  .resume-hero .tagline {
+    color: #bfdbfe; font-size: 1.1rem; margin-bottom: 0.5rem;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .resume-hero .contact-links {
+    margin-top: 1rem; animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .resume-hero .contact-links a {
+    color: #fff; border: 2px solid rgba(255,255,255,0.4);
+    padding: 0.4rem 1rem; border-radius: 8px; margin: 0.2rem 0.3rem;
+    font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    display: inline-block; transition: all 0.3s ease;
+  }
+
+  .resume-hero .contact-links a:hover {
+    background: rgba(255,255,255,0.15); border-color: #fff; transform: translateY(-2px);
+  }
+
+  .download-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1));
+    border: 2px solid #fff;
+    color: #fff !important; padding: 0.6rem 1.6rem; border-radius: 10px;
+    font-size: 0.9rem; font-weight: 600; text-decoration: none !important;
+    margin-top: 1.2rem; transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+  }
+
+  .download-btn:hover {
+    background: #fff; color: #1a56db !important;
+    transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  }
+
+  /* Resume Body */
+  .resume-body { max-width: 850px; margin: 0 auto; padding: 2rem; }
+
+  .resume-section {
+    background: #fff; border-radius: 14px; padding: 2rem; margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(26, 86, 219, 0.08); border-left: 4px solid #dbeafe;
+    transition: all 0.4s ease; animation: fadeInUp 0.7s ease-out both;
+  }
+
+  .resume-section:nth-child(1) { animation-delay: 0.1s; }
+  .resume-section:nth-child(2) { animation-delay: 0.2s; }
+  .resume-section:nth-child(3) { animation-delay: 0.3s; }
+  .resume-section:nth-child(4) { animation-delay: 0.4s; }
+  .resume-section:nth-child(5) { animation-delay: 0.5s; }
+
+  .resume-section:hover {
+    border-left: 4px solid #1a56db;
+    box-shadow: 0 8px 25px rgba(26, 86, 219, 0.12);
+    transform: translateY(-3px);
+  }
+
+  .resume-section h2 {
+    color: #1a56db; font-weight: 700; font-size: 1.4rem;
+    margin-top: 0; margin-bottom: 1.2rem;
+    padding-bottom: 0.5rem; border-bottom: 2px solid #dbeafe;
+  }
+
+  .resume-entry {
+    padding: 1rem 0; border-bottom: 1px solid #f1f5f9; transition: all 0.3s ease;
+  }
+
+  .resume-entry:last-child { border-bottom: none; }
+
+  .resume-entry:hover {
+    background-color: #f8faff; border-radius: 8px; padding-left: 0.8rem;
+  }
+
+  .resume-entry h3 { color: #1e40af; font-size: 1.1rem; margin: 0 0 0.2rem 0; }
+
+  .resume-date { color: #64748b; font-size: 0.85rem; font-style: italic; }
+
+  .resume-entry p {
+    color: #475569; font-size: 0.92rem; line-height: 1.6; margin-top: 0.5rem;
+  }
+
+  /* Highlights */
+  .highlight-grid { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.8rem; }
+
+  .highlight-item {
+    background: #eff6ff; border-radius: 10px; padding: 0.8rem 1rem;
+    flex: 1; min-width: 150px; text-align: center; transition: all 0.3s ease;
+  }
+
+  .highlight-item:hover {
+    background: #1a56db; color: #fff; transform: translateY(-3px);
+  }
+
+  .highlight-item:hover .highlight-number,
+  .highlight-item:hover .highlight-label { color: #fff; }
+
+  .highlight-number {
+    font-size: 1.5rem; font-weight: 700; color: #1a56db;
+    display: block; transition: color 0.3s ease;
+  }
+
+  .highlight-label { font-size: 0.8rem; color: #64748b; transition: color 0.3s ease; }
+
+  /* Tags */
+  .tag {
+    display: inline-block; background-color: #dbeafe; color: #1e40af;
+    padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem;
+    margin-right: 0.4rem; margin-bottom: 0.4rem; font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .tag:hover { background-color: #1a56db; color: #fff; transform: translateY(-2px) scale(1.05); }
+
+  /* Summary callout */
+  .summary-box {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-radius: 12px; padding: 1.2rem 1.5rem;
+    border-left: 4px solid #1a56db; font-size: 0.95rem;
+    color: #1e40af; line-height: 1.6; margin-bottom: 1rem;
+  }
 
 
-<section id="shivang-bhatt" class="level1 resume-header">
-<h1>Shivang Bhatt</h1>
-<ol start="619" type="1">
-<li>953-8933 | <a href="mailto:s1bhatt@ucsd.edu">s1bhatt@ucsd.edu</a> | San Diego, CA | <a href="https://www.linkedin.com/in/shivang-bhatt-data">LinkedIn</a></li>
-</ol>
-</section>
-<p><a href="resume.pdf" class="download-btn">Download PDF Version</a></p>
-<section id="education" class="level2 resume-section">
-<h2 class="anchored" data-anchor-id="education">Education</h2>
-<section id="university-of-california-san-diego" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="university-of-california-san-diego">University of California, San Diego</h3>
-<p><span class="date-range">M.S. in Business Analytics (Rady Scholar) · Dec 2026</span></p>
-<p>Coursework: Customer Analytics, Big Data Analytics, Digital Transformation</p>
-</section>
-<section id="wilson-college-university-of-mumbai" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="wilson-college-university-of-mumbai">Wilson College, University of Mumbai</h3>
-<p><span class="date-range">B.S. in Management Studies (Business Statistics) · Oct 2020</span></p>
-</section>
-</section>
-<section id="experience" class="level2 resume-section">
-<h2 class="anchored" data-anchor-id="experience">Experience</h2>
-<section id="senior-business-intelligence-analyst-nusummit-technologies" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="senior-business-intelligence-analyst-nusummit-technologies">Senior Business Intelligence Analyst — NuSummit Technologies</h3>
-<p><span class="date-range">Apr 2023 – Apr 2025 · Remote</span></p>
-<p>Designed and automated GTM &amp; revenue dashboards for enterprise clients in financial services and insurance. Built forecasting and pipeline models in SQL/Snowflake using Salesforce data, improving quarterly revenue predictability. Partnered cross-functionally to define GTM KPIs, boosting campaign ROI by 20% and conversion rates by 12%. Developed ETL pipelines and Python validation scripts in AWS for near real-time executive dashboards. Created predictive models for customer segmentation achieving 94% accuracy across 5,000+ reviews.</p>
-</section>
-<section id="business-intelligence-analyst-boston-institute-of-analytics" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="business-intelligence-analyst-boston-institute-of-analytics">Business Intelligence Analyst — Boston Institute of Analytics</h3>
-<p><span class="date-range">Jun 2021 – Jan 2023 · Remote</span></p>
-<p>Built cross-functional dashboards tracking pipeline health, marketing impact, and customer success. Optimized SQL queries in Snowflake to automate reporting, reducing dashboard latency by 70%. Developed a Multi-Touch Attribution framework to determine ROAS and guide spend decisions. Conducted funnel and A/B testing in HubSpot and Salesforce. Supported migration from Qlik to Tableau through standardized metrics and self-serve analytics.</p>
-</section>
-<section id="data-strategy-intern-kustard.ai" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="data-strategy-intern-kustard.ai">Data Strategy Intern — Kustard.ai</h3>
-<p><span class="date-range">Apr – Jul 2019 · Remote</span></p>
-<p>Designed data models and dashboards analyzing pipeline and lead efficiency. Built predictive engagement models improving targeting accuracy to 94%. Automated sales reporting cutting turnaround time by 30%, boosting engagement by 7%.</p>
-</section>
-</section>
-<section id="projects" class="level2 resume-section">
-<h2 class="anchored" data-anchor-id="projects">Projects</h2>
-<section id="market-sentiment-brand-perception-analysis" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="market-sentiment-brand-perception-analysis">Market Sentiment &amp; Brand Perception Analysis</h3>
-<p><span class="date-range">UCSD · Jan 2026</span></p>
-<p>Analyzed Twitter and digital news sentiment to evaluate shifts in brand perception, finding that trend-driven brands experienced faster short-term sentiment swings than established brands.</p>
-</section>
-<section id="up-sell-ad-campaign-for-intuit-quickbooks" class="level3 resume-entry">
-<h3 class="anchored" data-anchor-id="up-sell-ad-campaign-for-intuit-quickbooks">Up-Sell Ad Campaign for Intuit QuickBooks</h3>
-<p><span class="date-range">UCSD · Dec 2025</span></p>
-<p>Deployed an ML model on clickstream data of 1M users to identify causal relationships between features and engagement, informing a campaign that generated $380K in profit.</p>
-</section>
-</section>
-<section id="skills" class="level2 resume-section">
-<h2 class="anchored" data-anchor-id="skills">Skills</h2>
-<p><span class="tag">SQL</span> <span class="tag">Python</span> <span class="tag">Snowflake</span> <span class="tag">AWS</span> <span class="tag">Tableau</span> <span class="tag">Power BI</span> <span class="tag">Salesforce</span> <span class="tag">HubSpot</span> <span class="tag">GA4</span> <span class="tag">Excel</span> <span class="tag">Alteryx</span> <span class="tag">XGBoost</span> <span class="tag">Random Forest</span> <span class="tag">A/B Testing</span></p>
-</section>
+
+
+
+    Shivang Bhatt
+    GTM &amp; Revenue Analytics · Growth Engineering · Marketing Data Science
+
+      📱 (619) 953-8933
+      ✉ s1bhatt@ucsd.edu
+      in LinkedIn
+
+    📄 Download Resume PDF
+
+
+
+
+
+
+
+
+    👤 Summary
+
+      GTM-focused analytics professional with 4+ years turning pipeline data, marketing signals, and customer behavior into revenue growth. Experienced in building forecasting models, attribution frameworks, and self-serve dashboards that empower marketing, sales, and product teams to move faster. Pursuing an M.S. in Business Analytics at UC San Diego (Rady).
+
+
+
+
+
+    ⚡ Key Highlights
+
+
+        20%
+        Campaign ROI Lift
+
+
+        $380K
+        Profit from ML Campaign
+
+
+        70%
+        Latency Reduction
+
+
+        94%
+        Model Accuracy
+
+
+
+
+
+
+    🎓 Education
+
+      University of California, San Diego
+      M.S. in Business Analytics (Rady Scholar) · Dec 2026
+      Customer Analytics, Big Data Analytics, Digital Transformation, Targeting &amp; Uplift Modeling, Churn Prediction, A/B Testing &amp; Experiment Design
+
+
+      Wilson College, University of Mumbai
+      B.S. in Management Studies (Business Statistics) · Oct 2020
+
+
+
+
+
+    💼 Experience
+
+
+      Senior Business Intelligence Analyst (GTM &amp; Revenue) — NuSummit Technologies
+      Apr 2023 – Apr 2025 · Remote
+      Led GTM &amp; revenue dashboard automation for enterprise clients in financial services and insurance. Built SQL/Snowflake pipeline forecasting models from Salesforce data to track lead-to-close efficiency. Partnered with marketing and sales to define GTM KPIs, boosting campaign ROI by 20% and conversion rates by 12%. Developed ETL pipelines and Python scripts in AWS for near real-time executive reporting. Created customer segmentation models achieving 94% accuracy across 5,000+ reviews to guide product launches.
+
+
+
+      Business Intelligence Analyst (GTM Reporting) — Boston Institute of Analytics
+      Jun 2021 – Jan 2023 · Remote
+      Built dashboards tracking pipeline health, marketing impact, and customer success. Developed a Multi-Touch Attribution framework to determine ROAS and optimize channel spend. Conducted funnel analysis and A/B testing in HubSpot and Salesforce. Optimized SQL queries reducing dashboard latency by 70%. Supported Qlik-to-Tableau migration through standardized metrics and self-serve analytics.
+
+
+
+      Data Strategy Intern (Sales Analytics) — Kustard.ai
+      Apr – Jul 2019 · Remote
+      Designed pipeline and lead efficiency dashboards. Built predictive engagement models improving targeting accuracy to 94%. Automated sales reporting cutting turnaround time by 30%. Supported GTM planning to boost consumer engagement by 7%.
+
+
+
+
+
+    🛠 Skills
+
+    GTM &amp; Marketing Analytics:
+    Multi-Touch AttributionROASCampaign OptimizationUplift ModelingA/B TestingFunnel Analysis
+
+    CRM &amp; Marketing Platforms:
+    SalesforceHubSpotGA4Segment
+
+    BI &amp; Visualization:
+    TableauPower BIExcelAlteryxDashboard Automation
+
+    Data &amp; ML:
+    SQLPythonSnowflakeAWSXGBoostCausal InferenceChurn PredictionCustomer LTV
+
+
+
 
 
 
