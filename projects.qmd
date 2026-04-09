@@ -1,0 +1,32 @@
+---
+title: "Projects"
+---
+
+Here are a few things I've been working on:
+
+::: {.project-card}
+### Personal Website
+Built with Quarto — this site you're looking at right now! Features custom CSS theming, multiple pages, and a responsive navbar.
+
+[Source Code](https://github.com) &nbsp; | &nbsp; [Live Site](#)
+
+[Quarto]{.tag} [CSS]{.tag} [Markdown]{.tag}
+:::
+
+::: {.project-card}
+### Data Visualization Dashboard
+An interactive dashboard exploring trends in global climate data using R and Plotly.
+
+[Source Code](https://github.com) &nbsp; | &nbsp; [Live Demo](#)
+
+[R]{.tag} [Plotly]{.tag} [Data Viz]{.tag}
+:::
+
+::: {.project-card}
+### Machine Learning Classifier
+A sentiment analysis model trained on movie reviews using Python and scikit-learn.
+
+[Source Code](https://github.com)
+
+[Python]{.tag} [scikit-learn]{.tag} [NLP]{.tag}
+:::

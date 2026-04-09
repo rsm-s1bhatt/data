@@ -1,0 +1,33 @@
+---
+title: "Shivang Bhatt"
+subtitle: "Welcome to my website!"
+image: profile.png
+about:
+  template: trestles
+  image-shape: round
+  links:
+    - icon: envelope
+      text: Email
+      href: mailto:shivang@example.com
+    - icon: linkedin
+      text: LinkedIn
+      href: https://linkedin.com
+    - icon: twitter-x
+      text: X / Twitter
+      href: https://twitter.com
+---
+
+## About Me
+
+Hi! I'm Shivang — a student interested in data science, technology, and building things that matter. I'm currently exploring machine learning, web development, and creative problem-solving.
+
+## Education
+
+**University Name** | B.S. in Your Major | Expected Graduation 2026
+
+## Interests
+
+- Data visualization & storytelling
+- Machine learning & AI
+- Sports analytics
+- Open-source software
