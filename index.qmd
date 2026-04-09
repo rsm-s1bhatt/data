@@ -1,7 +1,7 @@
 ---
 title: "Shivang Bhatt"
 subtitle: "Welcome to my website!"
-image: profile.png
+image: profile_pic.jpg
 about:
   template: trestles
   image-shape: round
@@ -21,6 +21,8 @@ about:
 
 Hi! I'm Shivang — a Business Analytics graduate student at UC San Diego's Rady School of Management. I specialize in business intelligence, revenue analytics, and building data-driven solutions for enterprise clients.
 
+When I'm not crunching numbers, you'll find me watching soccer, chasing sunsets, or debating who's winning the next World Cup.
+
 ## Education
 
 **University of California, San Diego** | M.S. in Business Analytics (Rady Scholar) | Dec 2026
@@ -29,7 +31,8 @@ Hi! I'm Shivang — a Business Analytics graduate student at UC San Diego's Rady
 
 ## Interests
 
-- Business intelligence & dashboard automation
-- Machine learning & predictive modeling
 - Sports analytics
+- Sunsets & the outdoors
 - GTM strategy & revenue optimization
+- Machine learning & predictive modeling
+- Dashboard automation & data storytelling

@@ -3,20 +3,108 @@
 /* Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
+/* ---- Animations ---- */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---- Base Styles ---- */
+
 body {
   font-family: 'Inter', sans-serif;
   color: #2c2c2c;
   background-color: #f9f9fb;
 }
 
-/* Navbar styling */
+/* ---- Navbar ---- */
+
 .navbar {
   font-weight: 600;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-out;
 }
 
-/* Headings */
+.navbar-brand {
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #533483, #0f3460);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+}
+
+/* Social icons in navbar */
+.navbar .bi {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.navbar .bi:hover {
+  transform: scale(1.3) rotate(5deg);
+  color: #533483 !important;
+}
+
+/* ---- Headings ---- */
+
 h1, h2, h3 {
   color: #1a1a2e;
   font-weight: 700;
@@ -25,39 +113,87 @@ h1, h2, h3 {
 h1 {
   font-size: 2.2rem;
   margin-bottom: 0.3rem;
+  animation: fadeInUp 0.8s ease-out;
 }
 
-/* About page profile image */
-.about-image img {
+h2 {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+/* ---- Profile Image ---- */
+
+.about-image img,
+.quarto-about-trestles .about-image img {
   border-radius: 50%;
   width: 200px;
   height: 200px;
   object-fit: cover;
   border: 4px solid #1a1a2e;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1s ease-out;
+  transition: transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease;
 }
 
-/* Card styling for projects */
+.about-image img:hover,
+.quarto-about-trestles .about-image img:hover {
+  transform: scale(1.08) rotate(3deg);
+  box-shadow: 0 8px 30px rgba(83, 52, 131, 0.3);
+  border-color: #533483;
+}
+
+/* ---- About Page Links/Buttons ---- */
+
+.about-links a,
+.quarto-about-trestles .about-link {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.about-links a:hover,
+.quarto-about-trestles .about-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(83, 52, 131, 0.2);
+  background-color: #1a1a2e !important;
+  color: #fff !important;
+}
+
+/* ---- Project Cards ---- */
+
 .project-card {
   background: #ffffff;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInUp 0.8s ease-out;
+  border-left: 4px solid transparent;
 }
 
 .project-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  border-left: 4px solid #533483;
 }
 
 .project-card h3 {
   margin-top: 0;
   color: #16213e;
+  transition: color 0.3s ease;
 }
 
-/* Tag pills for skills */
+.project-card:hover h3 {
+  color: #533483;
+}
+
+/* Staggered animation for multiple cards */
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.25s; }
+.project-card:nth-child(3) { animation-delay: 0.4s; }
+.project-card:nth-child(4) { animation-delay: 0.55s; }
+
+/* ---- Tags ---- */
+
 .tag {
   display: inline-block;
   background-color: #e8eaf6;
@@ -68,30 +204,28 @@ h1 {
   margin-right: 0.4rem;
   margin-bottom: 0.4rem;
   font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-/* Links */
+.tag:hover {
+  background-color: #1a1a2e;
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+}
+
+/* ---- Links ---- */
+
 a {
   color: #0f3460;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 a:hover {
   color: #533483;
-  text-decoration: underline;
 }
 
-/* ---- Resume Page ---- */
-
-.resume-header {
-  text-align: center;
-  margin-bottom: 0.5rem;
-}
-
-.resume-header p {
-  color: #555;
-  font-size: 0.95rem;
-}
+/* ---- Date Range ---- */
 
 .date-range {
   display: inline-block;
@@ -101,25 +235,60 @@ a:hover {
   margin-bottom: 0.3rem;
 }
 
+/* ---- Resume Page ---- */
+
+.resume-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.resume-header p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
 .download-btn {
   display: inline-block;
-  background-color: #1a1a2e;
+  background: linear-gradient(135deg, #1a1a2e, #533483);
+  background-size: 200% 200%;
   color: #fff !important;
-  padding: 0.5rem 1.2rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none !important;
-  transition: background-color 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: gradientShift 3s ease infinite;
 }
 
 .download-btn:hover {
-  background-color: #533483;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(83, 52, 131, 0.3);
 }
 
-/* Footer spacing */
+/* ---- Scroll Reveal (content fades in as you scroll) ---- */
+
+.quarto-about-trestles .about-contents,
+#quarto-content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* ---- List Items Hover ---- */
+
+li {
+  transition: transform 0.2s ease;
+}
+
+li:hover {
+  transform: translateX(5px);
+}
+
+/* ---- Footer ---- */
+
 .quarto-footer {
   margin-top: 3rem;
   border-top: 1px solid #ddd;
   padding-top: 1rem;
+  animation: fadeIn 1s ease-out;
 }
