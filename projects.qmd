@@ -2,31 +2,38 @@
 title: "Projects"
 ---
 
-Here are a few things I've been working on:
-
 ::: {.project-card}
-### Personal Website
-Built with Quarto — this site you're looking at right now! Features custom CSS theming, multiple pages, and a responsive navbar.
+### Market Sentiment & Brand Perception Analysis
+[UCSD · January 2026]{.date-range}
 
-[Source Code](https://github.com) &nbsp; | &nbsp; [Live Site](#)
+Analyzed Twitter and digital news sentiment to evaluate shifts in brand perception and consumer response. Found that trend-driven brands experienced faster and stronger short-term sentiment changes compared to established brands.
 
-[Quarto]{.tag} [CSS]{.tag} [Markdown]{.tag}
+[Python]{.tag} [NLP]{.tag} [Sentiment Analysis]{.tag} [Twitter API]{.tag}
 :::
 
 ::: {.project-card}
-### Data Visualization Dashboard
-An interactive dashboard exploring trends in global climate data using R and Plotly.
+### Up-Sell Ad Campaign for Intuit QuickBooks
+[UCSD · December 2025]{.date-range}
 
-[Source Code](https://github.com) &nbsp; | &nbsp; [Live Demo](#)
+Deployed an ML model to analyze clickstream data of 1 million users, identifying causal relationships between features and customer engagement. Informed a second-wave campaign that generated $380K in profit.
 
-[R]{.tag} [Plotly]{.tag} [Data Viz]{.tag}
+[Machine Learning]{.tag} [Python]{.tag} [Causal Inference]{.tag} [Clickstream Data]{.tag}
 :::
 
 ::: {.project-card}
-### Machine Learning Classifier
-A sentiment analysis model trained on movie reviews using Python and scikit-learn.
+### GTM Revenue Dashboards — NuSummit Technologies
+[2023 – 2025]{.date-range}
 
-[Source Code](https://github.com)
+Designed and automated GTM & revenue dashboards for enterprise clients in financial services and insurance. Built forecasting and pipeline models using Salesforce data, improving campaign ROI by 20% and conversion rates by 12%.
 
-[Python]{.tag} [scikit-learn]{.tag} [NLP]{.tag}
+[SQL]{.tag} [Snowflake]{.tag} [Tableau]{.tag} [AWS]{.tag} [Salesforce]{.tag}
+:::
+
+::: {.project-card}
+### Multi-Touch Attribution Framework — BIA
+[2021 – 2023]{.date-range}
+
+Developed a Multi-Touch Attribution framework to determine ROAS and guide channel-level spend decisions. Optimized SQL queries reducing dashboard latency by 70%.
+
+[SQL]{.tag} [Snowflake]{.tag} [HubSpot]{.tag} [A/B Testing]{.tag}
 :::

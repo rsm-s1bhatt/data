@@ -15,11 +15,11 @@ website:
         text: Projects
     right:
       - icon: linkedin
-        href: https://linkedin.com
+        href: https://www.linkedin.com/in/shivang-bhatt-data
       - icon: twitter-x
-        href: https://twitter.com
+        href: https://x.com/swwangg
       - icon: envelope
-        href: mailto:shivang@example.com
+        href: mailto:s1bhatt@ucsd.edu
 
 format:
   html:

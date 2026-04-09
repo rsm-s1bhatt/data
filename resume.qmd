@@ -1,5 +1,59 @@
 ---
-title: "My Resume"
+title: "Resume"
 ---
 
-{{< pdf files/resume.pdf width=100% height=800 >}}
+::: {.resume-header}
+# Shivang Bhatt
+(619) 953-8933 | [s1bhatt@ucsd.edu](mailto:s1bhatt@ucsd.edu) | San Diego, CA | [LinkedIn](https://www.linkedin.com/in/shivang-bhatt-data)
+:::
+
+[Download PDF Version](resume.pdf){.download-btn}
+
+---
+
+## Education
+
+**University of California, San Diego** | *M.S. in Business Analytics (Rady Scholar)* | Dec 2026
+
+Coursework: Customer Analytics, Big Data Analytics, Digital Transformation
+
+**Wilson College, University of Mumbai** | *B.S. in Management Studies (Business Statistics)* | Oct 2020
+
+---
+
+## Experience
+
+### Senior Business Intelligence Analyst — NuSummit Technologies
+[Apr 2023 – Apr 2025 · Remote]{.date-range}
+
+Designed and automated GTM & revenue dashboards for enterprise clients in financial services and insurance. Built forecasting and pipeline models in SQL/Snowflake using Salesforce data, improving quarterly revenue predictability. Partnered cross-functionally to define GTM KPIs, boosting campaign ROI by 20% and conversion rates by 12%. Developed ETL pipelines and Python validation scripts in AWS for near real-time executive dashboards. Created predictive models for customer segmentation achieving 94% accuracy across 5,000+ reviews.
+
+### Business Intelligence Analyst — Boston Institute of Analytics
+[Jun 2021 – Jan 2023 · Remote]{.date-range}
+
+Built cross-functional dashboards tracking pipeline health, marketing impact, and customer success. Optimized SQL queries in Snowflake to automate reporting, reducing dashboard latency by 70%. Developed a Multi-Touch Attribution framework to determine ROAS and guide spend decisions. Conducted funnel and A/B testing in HubSpot and Salesforce. Supported migration from Qlik to Tableau through standardized metrics and self-serve analytics.
+
+### Data Strategy Intern — Kustard.ai
+[Apr – Jul 2019 · Remote]{.date-range}
+
+Designed data models and dashboards analyzing pipeline and lead efficiency. Built predictive engagement models improving targeting accuracy to 94%. Automated sales reporting cutting turnaround time by 30%, boosting engagement by 7%.
+
+---
+
+## Projects
+
+### Market Sentiment & Brand Perception Analysis
+[UCSD · Jan 2026]{.date-range}
+
+Analyzed Twitter and digital news sentiment to evaluate shifts in brand perception, finding that trend-driven brands experienced faster short-term sentiment swings than established brands.
+
+### Up-Sell Ad Campaign for Intuit QuickBooks
+[UCSD · Dec 2025]{.date-range}
+
+Deployed an ML model on clickstream data of 1M users to identify causal relationships between features and engagement, informing a campaign that generated $380K in profit.
+
+---
+
+## Skills
+
+[SQL]{.tag} [Python]{.tag} [Snowflake]{.tag} [AWS]{.tag} [Tableau]{.tag} [Power BI]{.tag} [Salesforce]{.tag} [HubSpot]{.tag} [GA4]{.tag} [Excel]{.tag} [Alteryx]{.tag} [XGBoost]{.tag} [Random Forest]{.tag} [A/B Testing]{.tag}

@@ -1,20 +1,20 @@
 ---
 title: "Shivang Bhatt"
 subtitle: "Welcome to my website!"
-image: profile.png
+image: profile_pic.jpg
 about:
   template: trestles
   image-shape: round
   links:
     - icon: envelope
       text: Email
-      href: mailto:shivang@example.com
+      href: mailto:s1bhatt@ucsd.edu
     - icon: linkedin
       text: LinkedIn
-      href: https://linkedin.com
+      href: https://www.linkedin.com/in/shivang-bhatt-data
     - icon: twitter-x
       text: X / Twitter
-      href: https://twitter.com
+      href: https://x.com/swwangg
 ---
 
 ## About Me

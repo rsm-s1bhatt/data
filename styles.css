@@ -81,6 +81,42 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ---- Resume Page ---- */
+
+.resume-header {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.resume-header p {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.date-range {
+  display: inline-block;
+  color: #777;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 0.3rem;
+}
+
+.download-btn {
+  display: inline-block;
+  background-color: #1a1a2e;
+  color: #fff !important;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease;
+}
+
+.download-btn:hover {
+  background-color: #533483;
+}
+
 /* Footer spacing */
 .quarto-footer {
   margin-top: 3rem;
