@@ -10,5 +10,11 @@
   },
   "posts/ab-testing-cta/ab-testing-cta.qmd": {
     "ab-testing-cta.html": "25825171"
+  },
+  "posts/ab-testing-cta/index.qmd": {
+    "index.html": "a9228447"
+  },
+  "blog.qmd": {
+    "blog.html": "cbfbd7f3"
   }
 }
