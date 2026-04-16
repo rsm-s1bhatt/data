@@ -1,7 +1,7 @@
 ---
-title: "A/B Testing a Call to Action"
+title: "Why You Shouldn't Peek at Your A/B Test"
 subtitle: "Simulating Key Ideas from Classical Frequentist Statistics"
-author: "Shivang"
+author: "Shivang Bhatt"
 date: today
 format:
   html:
@@ -18,35 +18,68 @@ format:
 execute:
   warning: false
   message: false
+jupyter: python3
 ---
 
-```{r setup, include=FALSE}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(gt)
-library(scales)
+```{python}
+#| include: false
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from scipy import stats
+import statsmodels.api as sm
 
-set.seed(42)
+# Consistent aesthetic across the whole post
+plt.rcParams.update({
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Inter", "Helvetica", "Arial", "DejaVu Sans"],
+    "axes.titleweight": "bold",
+    "axes.titlesize": 13,
+    "axes.labelsize": 11,
+    "axes.edgecolor": "#cbd5e1",
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.grid": True,
+    "grid.color": "#e2e8f0",
+    "grid.linewidth": 0.6,
+    "xtick.color": "#475569",
+    "ytick.color": "#475569",
+    "figure.facecolor": "white",
+    "axes.facecolor": "white",
+})
 
-# Consistent theme for every chart in this post
-theme_post <- function() {
-  theme_minimal(base_size = 13) +
-    theme(
-      plot.title = element_text(face = "bold", size = 14),
-      plot.subtitle = element_text(color = "grey40"),
-      plot.caption = element_text(color = "grey50", size = 9),
-      panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(color = "grey92"),
-      legend.position = "top"
+COL_A = "#1a56db"       # primary (estimates)
+COL_NULL = "#d62728"    # truth / null reference
+COL_LIGHT = "#dbeafe"   # fill tints
+
+rng = np.random.default_rng(42)
+
+def styled_table(df, highlight_rows=None, highlight_color="#1a56db"):
+    """Return a pandas Styler that matches the site aesthetic."""
+    highlight_rows = highlight_rows or []
+    styler = (
+        df.style
+        .hide(axis="index")
+        .set_table_styles([
+            {"selector": "thead th",
+             "props": "background-color:#0c2d6b;color:white;font-weight:600;"
+                      "padding:10px;text-align:center;border:none;"},
+            {"selector": "tbody td",
+             "props": "padding:8px 12px;border-bottom:1px solid #e2e8f0;"},
+            {"selector": "",
+             "props": "border-collapse:collapse;margin:1rem auto;"
+                      "box-shadow:0 2px 8px rgba(26,86,219,0.08);"
+                      "border-radius:8px;overflow:hidden;font-size:14px;"},
+        ])
+        .set_properties(**{"text-align": "center"})
     )
-}
-
-# Colors used throughout
-col_a <- "#1f77b4"   # CTA A
-col_b <- "#ff7f0e"   # CTA B
-col_accent <- "#2ca02c"
-col_null <- "#d62728"
+    if highlight_rows:
+        def row_highlight(row):
+            if row.name in highlight_rows:
+                return [f"color:{highlight_color};font-weight:700;"] * len(row)
+            return [""] * len(row)
+        styler = styler.apply(row_highlight, axis=1)
+    return styler
 ```
 
 ## Introduction
@@ -96,52 +129,45 @@ For this exercise I'll assume:
 
 I simulate 1,000 draws from each Bernoulli distribution — so 2,000 synthetic visitors in total, 1,000 per CTA.
 
-```{r simulate-data}
-set.seed(42)
+```{python}
+rng = np.random.default_rng(42)
 
-pi_A <- 0.22
-pi_B <- 0.18
-n    <- 1000
+pi_A = 0.22
+pi_B = 0.18
+n    = 1000
 
-X_A <- rbinom(n, size = 1, prob = pi_A)
-X_B <- rbinom(n, size = 1, prob = pi_B)
+X_A = rng.binomial(1, pi_A, size=n)
+X_B = rng.binomial(1, pi_B, size=n)
 
 # Observed sample proportions and estimator
-pi_hat_A <- mean(X_A)
-pi_hat_B <- mean(X_B)
-theta_hat <- pi_hat_A - pi_hat_B
+pi_hat_A  = X_A.mean()
+pi_hat_B  = X_B.mean()
+theta_hat = pi_hat_A - pi_hat_B
 ```
 
-```{r simulate-data-table, echo=FALSE}
-tibble::tibble(
-  Quantity = c("Sample size per group",
-               "True sign-up rate (A)",
-               "True sign-up rate (B)",
-               "True difference",
-               "Observed sign-up rate (A)",
-               "Observed sign-up rate (B)",
-               "Estimated difference"),
-  Symbol = c("n", "π_A", "π_B", "θ",
-             "π̂_A", "π̂_B", "θ̂"),
-  Value = c(format(n, big.mark = ","),
-            sprintf("%.3f", pi_A),
-            sprintf("%.3f", pi_B),
-            sprintf("%+.3f", pi_A - pi_B),
-            sprintf("%.3f", pi_hat_A),
-            sprintf("%.3f", pi_hat_B),
-            sprintf("%+.3f", theta_hat))
-) |>
-  gt() |>
-  tab_header(title = "Simulated A/B test: truth vs. what we observe") |>
-  cols_align(align = "center", columns = c(Symbol, Value)) |>
-  tab_style(
-    style = cell_text(weight = "bold"),
-    locations = cells_body(rows = c(4, 7))
-  ) |>
-  tab_options(table.width = pct(80))
+```{python}
+#| echo: false
+sim_table = pd.DataFrame({
+    "Quantity": ["Sample size per group",
+                 "True sign-up rate (A)",
+                 "True sign-up rate (B)",
+                 "True difference",
+                 "Observed sign-up rate (A)",
+                 "Observed sign-up rate (B)",
+                 "Estimated difference"],
+    "Symbol":   ["n", "π_A", "π_B", "θ", "π̂_A", "π̂_B", "θ̂"],
+    "Value":    [f"{n:,}",
+                 f"{pi_A:.3f}",
+                 f"{pi_B:.3f}",
+                 f"{pi_A - pi_B:+.3f}",
+                 f"{pi_hat_A:.3f}",
+                 f"{pi_hat_B:.3f}",
+                 f"{theta_hat:+.3f}"]
+})
+styled_table(sim_table, highlight_rows=[3, 6])
 ```
 
-The observed difference $\hat\theta$ won't exactly equal the true $\theta = 0.04$ — sampling noise will push it around a bit. The rest of this post is essentially a tour of the classical statistical tools we use to reason about that noise.
+On this particular simulation the observed gap comes in at $\hat\theta = `{python} f"{theta_hat:+.3f}"`$ — noticeably smaller than the true $\theta = 0.04$. That isn't a bug; it's exactly the kind of sampling noise the rest of this post is about. With only 1,000 visitors per group and fairly low sign-up rates, random variation can pull our estimate meaningfully off the truth in either direction. The rest of this post is essentially a tour of the classical statistical tools we use to reason about that noise.
 
 ## The Law of Large Numbers
 
@@ -149,35 +175,32 @@ The **Law of Large Numbers** (LLN) is the reason averages work at all. It says t
 
 A nice way to see this in action is to compute the *cumulative* average of the paired differences as we walk through our 1,000 observations one at a time, and watch it settle down.
 
-```{r lln-compute}
+```{python}
 # Element-wise differences, then running average
-pair_diffs <- X_A - X_B
-cum_avg    <- cumsum(pair_diffs) / seq_along(pair_diffs)
+pair_diffs = X_A - X_B
+cum_avg    = np.cumsum(pair_diffs) / np.arange(1, len(pair_diffs) + 1)
 ```
 
-```{r lln-plot, echo=FALSE, fig.cap="Running average of paired differences. The red dashed line is the true θ = 0.04."}
-tibble::tibble(n = seq_along(cum_avg), avg = cum_avg) |>
-  ggplot(aes(n, avg)) +
-  geom_hline(yintercept = 0.04, color = col_null,
-             linetype = "dashed", linewidth = 0.6) +
-  geom_line(color = col_a, linewidth = 0.7) +
-  annotate("text", x = 950, y = 0.055,
-           label = "θ = 0.04", color = col_null,
-           size = 3.8, fontface = "italic", hjust = 1) +
-  scale_x_continuous(labels = comma) +
-  scale_y_continuous(labels = number_format(accuracy = 0.01)) +
-  labs(
-    title    = "The Law of Large Numbers in action",
-    subtitle = "Cumulative average of (X_A − X_B) as the sample grows",
-    x = "Number of observations per group",
-    y = expression(hat(theta)[n])
-  ) +
-  theme_post()
+```{python}
+#| echo: false
+#| fig-cap: "Running average of paired differences. The red dashed line is the true θ = 0.04."
+fig, ax = plt.subplots(figsize=(8, 4.5))
+ax.axhline(0.04, color=COL_NULL, linestyle="--", linewidth=0.8, zorder=1)
+ax.plot(np.arange(1, n + 1), cum_avg, color=COL_A, linewidth=0.9, zorder=2)
+ax.text(n * 0.97, 0.055, "θ = 0.04", color=COL_NULL, style="italic",
+        ha="right", fontsize=10)
+ax.set_title("The Law of Large Numbers in action")
+ax.set_xlabel("Number of observations per group")
+ax.set_ylabel(r"$\hat{\theta}_n$")
+ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{int(x):,}"))
+fig.suptitle("")
+fig.tight_layout()
+plt.show()
 ```
 
-Early on — say, the first 50 observations — the running average is all over the place. It bounces between negative values and values well above 0.10, and if you stopped the experiment at any of those early points you'd walk away with a very misleading number. By the time we've accumulated a few hundred observations, though, the line starts to tighten around the true difference, and by 1,000 it's settled into a narrow band around $\theta = 0.04$.
+Early on — say, the first 50 observations — the running average is all over the place. It bounces between negative values and values well above 0.10, and if you stopped the experiment at any of those early points you'd walk away with a very misleading number. By the time we've accumulated a few hundred observations, the line starts to tighten, and by 1,000 it has settled into a narrow band — in this case a bit below the true $\theta = 0.04$, because sampling variability pulled this particular realization slightly low.
 
-The practical takeaway is that small samples lie to you, confidently and without warning. The LLN is a promise about what happens *eventually*, not a guarantee about what you'll see at $n = 30$.
+The practical takeaway is that small samples lie to you, confidently and without warning. The LLN is a promise about what happens *eventually*, not a guarantee about what you'll see at $n = 30$ — or even, as we're seeing here, at $n = 1{,}000$.
 
 ## Bootstrap Standard Errors
 
@@ -185,73 +208,67 @@ Knowing that $\hat\theta$ *eventually* converges is reassuring, but in practice 
 
 The bootstrap is a resampling trick. The intuition goes like this: our observed sample is the best window we have into the population, so we treat it *as if* it were the population, draw new samples from it (with replacement), and recompute our statistic on each of those new samples. The spread of those recomputed statistics gives us a data-driven estimate of how much our statistic would vary from one real sample to another. No closed-form formula, no distributional assumptions beyond what's already baked into the data.
 
-```{r bootstrap}
-set.seed(42)
-B <- 1000
-theta_boot <- numeric(B)
+```{python}
+rng = np.random.default_rng(42)
+B = 1000
+theta_boot = np.empty(B)
 
-for (b in 1:B) {
-  A_star <- sample(X_A, size = n, replace = TRUE)
-  B_star <- sample(X_B, size = n, replace = TRUE)
-  theta_boot[b] <- mean(A_star) - mean(B_star)
-}
+for b in range(B):
+    A_star = rng.choice(X_A, size=n, replace=True)
+    B_star = rng.choice(X_B, size=n, replace=True)
+    theta_boot[b] = A_star.mean() - B_star.mean()
 
-se_boot <- sd(theta_boot)
+se_boot = theta_boot.std(ddof=1)
 
 # Analytical SE for the difference in two independent Bernoulli proportions
-se_analytic <- sqrt(
-  pi_hat_A * (1 - pi_hat_A) / n +
-  pi_hat_B * (1 - pi_hat_B) / n
+se_analytic = np.sqrt(
+    pi_hat_A * (1 - pi_hat_A) / n +
+    pi_hat_B * (1 - pi_hat_B) / n
 )
 
 # 95% CI using the bootstrap SE
-ci_lo <- theta_hat - 1.96 * se_boot
-ci_hi <- theta_hat + 1.96 * se_boot
+ci_lo = theta_hat - 1.96 * se_boot
+ci_hi = theta_hat + 1.96 * se_boot
 ```
 
-```{r bootstrap-table, echo=FALSE}
-tibble::tibble(
-  Quantity = c("Point estimate θ̂",
-               "Bootstrap SE",
-               "Analytical SE",
-               "95% CI (lower)",
-               "95% CI (upper)"),
-  Value = c(sprintf("%.4f", theta_hat),
-            sprintf("%.4f", se_boot),
-            sprintf("%.4f", se_analytic),
-            sprintf("%.4f", ci_lo),
-            sprintf("%.4f", ci_hi))
-) |>
-  gt() |>
-  tab_header(title = "Bootstrap vs. analytical inference for θ̂") |>
-  cols_align(align = "center", columns = Value) |>
-  tab_options(table.width = pct(70))
+```{python}
+#| echo: false
+boot_table = pd.DataFrame({
+    "Quantity": ["Point estimate θ̂",
+                 "Bootstrap SE",
+                 "Analytical SE",
+                 "95% CI (lower)",
+                 "95% CI (upper)"],
+    "Value":    [f"{theta_hat:.4f}",
+                 f"{se_boot:.4f}",
+                 f"{se_analytic:.4f}",
+                 f"{ci_lo:.4f}",
+                 f"{ci_hi:.4f}"]
+})
+styled_table(boot_table)
 ```
 
-```{r bootstrap-plot, echo=FALSE, fig.cap="Distribution of 1,000 bootstrap replicates of θ̂. The dashed line is the point estimate; shaded band is the 95% CI."}
-tibble::tibble(theta = theta_boot) |>
-  ggplot(aes(theta)) +
-  annotate("rect", xmin = ci_lo, xmax = ci_hi,
-           ymin = 0, ymax = Inf,
-           fill = col_a, alpha = 0.10) +
-  geom_histogram(bins = 35, fill = col_a, color = "white", alpha = 0.85) +
-  geom_vline(xintercept = theta_hat, color = col_null,
-             linetype = "dashed", linewidth = 0.6) +
-  annotate("text", x = theta_hat, y = Inf,
-           label = sprintf("  θ̂ = %.3f", theta_hat),
-           color = col_null, hjust = 0, vjust = 2, size = 3.8) +
-  scale_x_continuous(labels = number_format(accuracy = 0.01)) +
-  labs(
-    title    = "Bootstrap sampling distribution of θ̂",
-    subtitle = "1,000 resamples drawn with replacement from the observed data",
-    x = expression(hat(theta)^"*"), y = "Count"
-  ) +
-  theme_post()
+```{python}
+#| echo: false
+#| fig-cap: "Distribution of 1,000 bootstrap replicates of θ̂. The dashed line is the point estimate; shaded band is the 95% CI."
+fig, ax = plt.subplots(figsize=(8, 4.5))
+ax.axvspan(ci_lo, ci_hi, color=COL_A, alpha=0.10, zorder=1)
+ax.hist(theta_boot, bins=35, color=COL_A, edgecolor="white",
+        alpha=0.9, zorder=2)
+ax.axvline(theta_hat, color=COL_NULL, linestyle="--", linewidth=0.8, zorder=3)
+ax.text(theta_hat, ax.get_ylim()[1] * 0.95,
+        f"  θ̂ = {theta_hat:.3f}",
+        color=COL_NULL, ha="left", va="top", fontsize=10)
+ax.set_title("Bootstrap sampling distribution of θ̂")
+ax.set_xlabel(r"$\hat{\theta}^{*}$")
+ax.set_ylabel("Count")
+fig.tight_layout()
+plt.show()
 ```
 
-The two standard errors are strikingly close — the bootstrap lands within a thousandth of the analytical formula. That's the point: the bootstrap reproduces, via brute-force computation, what a textbook plug-in formula gives us in closed form. What makes it valuable is that the *same procedure* works for statistics where no clean formula exists.
+The two standard errors are strikingly close — the bootstrap lands within a few ten-thousandths of the analytical formula. That's the point: the bootstrap reproduces, via brute-force computation, what a textbook plug-in formula gives us in closed form. What makes it valuable is that the *same procedure* works for statistics where no clean formula exists.
 
-Using the bootstrap SE, the 95% confidence interval for $\theta$ is roughly $[`r sprintf("%.3f", ci_lo)`, `r sprintf("%.3f", ci_hi)`]$. The interpretation is the standard frequentist one: if we repeated this experiment many times and computed an interval the same way each time, about 95% of those intervals would contain the true $\theta$. Our interval excludes zero, which is already a hint of the hypothesis test that comes a couple of sections down.
+Using the bootstrap SE, the 95% confidence interval for $\theta$ is roughly $[`{python} f"{ci_lo:.3f}"`, `{python} f"{ci_hi:.3f}"`]$. The interpretation is the standard frequentist one: if we repeated this experiment many times and computed an interval the same way each time, about 95% of those intervals would contain the true $\theta$. Notice the interval does include zero — which is a first hint that, *on this particular simulation*, we may not have enough data to confidently distinguish between the two CTAs, even though we happen to know the truth is $\theta = 0.04$. That's exactly the story the formal hypothesis test will tell in a couple of sections.
 
 ## The Central Limit Theorem
 
@@ -259,39 +276,39 @@ The bootstrap gave us a sampling distribution empirically. The **Central Limit T
 
 To see this concretely, I'll draw 1,000 independent experiments at each of four sample sizes: $n \in \{25, 50, 100, 500\}$. For each experiment I compute $\hat\theta$, then plot the resulting distribution.
 
-```{r clt-simulate}
-set.seed(42)
-sample_sizes <- c(25, 50, 100, 500)
-n_reps <- 1000
+```{python}
+rng = np.random.default_rng(42)
+sample_sizes = [25, 50, 100, 500]
+n_reps = 1000
 
-clt_results <- do.call(rbind, lapply(sample_sizes, function(ss) {
-  thetas <- replicate(n_reps, {
-    a <- rbinom(ss, 1, pi_A)
-    b <- rbinom(ss, 1, pi_B)
-    mean(a) - mean(b)
-  })
-  tibble::tibble(n = ss, theta_hat = thetas)
-}))
+clt_results = {}
+for ss in sample_sizes:
+    thetas = np.empty(n_reps)
+    for i in range(n_reps):
+        a = rng.binomial(1, pi_A, size=ss)
+        b = rng.binomial(1, pi_B, size=ss)
+        thetas[i] = a.mean() - b.mean()
+    clt_results[ss] = thetas
 ```
 
-```{r clt-plot, echo=FALSE, fig.cap="Sampling distributions of θ̂ at four sample sizes. The curve smooths out and tightens around θ = 0.04 as n grows.", fig.height=6}
-clt_results |>
-  mutate(n_lab = factor(paste0("n = ", n),
-                        levels = paste0("n = ", sample_sizes))) |>
-  ggplot(aes(theta_hat)) +
-  geom_histogram(aes(y = after_stat(density)), bins = 30,
-                 fill = col_a, color = "white", alpha = 0.85) +
-  geom_vline(xintercept = 0.04, color = col_null,
-             linetype = "dashed", linewidth = 0.5) +
-  facet_wrap(~ n_lab, scales = "fixed") +
-  scale_x_continuous(labels = number_format(accuracy = 0.01)) +
-  labs(
-    title    = "The Central Limit Theorem across sample sizes",
-    subtitle = "Each panel shows 1,000 replications of θ̂ at the labeled n",
-    x = expression(hat(theta)), y = "Density"
-  ) +
-  theme_post() +
-  theme(strip.text = element_text(face = "bold", size = 12))
+```{python}
+#| echo: false
+#| fig-cap: "Sampling distributions of θ̂ at four sample sizes. The curve smooths out and tightens around θ = 0.04 as n grows."
+#| fig-height: 6
+fig, axes = plt.subplots(2, 2, figsize=(9, 6.5), sharex=True)
+for ax, ss in zip(axes.flatten(), sample_sizes):
+    data = clt_results[ss]
+    ax.hist(data, bins=30, color=COL_A, edgecolor="white",
+            alpha=0.9, density=True)
+    ax.axvline(0.04, color=COL_NULL, linestyle="--", linewidth=0.8)
+    ax.set_title(f"n = {ss}", fontsize=11, fontweight="bold")
+    ax.set_ylabel("Density")
+axes[1, 0].set_xlabel(r"$\hat{\theta}$")
+axes[1, 1].set_xlabel(r"$\hat{\theta}$")
+fig.suptitle("The Central Limit Theorem across sample sizes",
+             fontsize=13, fontweight="bold", y=1.0)
+fig.tight_layout()
+plt.show()
 ```
 
 At $n = 25$ the distribution is chunky and discrete — you can almost count the possible values of $\hat\theta$, and it's visibly lumpy. At $n = 50$ things start to look more continuous. By $n = 100$ the shape is clearly bell-like, and at $n = 500$ it's a tight, symmetric Normal centered almost exactly on the true $\theta = 0.04$. Two things are happening at once in that sequence: the distribution is becoming more Normal-shaped (the CLT), and it's getting narrower (the LLN, since larger $n$ shrinks the standard error). Both effects compound, which is why larger experiments give you both more precise *and* more Normally-behaved estimates.
@@ -321,33 +338,30 @@ Knowing the distribution of $z$ under the null is exactly what lets us compute a
 
 One note on terminology. This procedure is often called a "t-test," which is slightly misleading in our context. The classical t-test is the exact test that arises when your data are drawn from a *Normal* distribution and you have to estimate the variance from the sample; in that case the ratio above follows a t-distribution exactly. Our data are Bernoulli, not Normal, so there's no exact t-distribution result here — what we have instead is *approximate* Normality via the CLT. Since we estimate the SE from the data, what we're really doing is closer to a z-test. In practice the distinction rarely matters: for anything beyond very small samples the t-distribution and the standard Normal are nearly indistinguishable. But it's worth knowing what the mathematical scaffolding actually is.
 
-```{r hypothesis-test}
-z_stat <- theta_hat / se_analytic
-p_value <- 2 * (1 - pnorm(abs(z_stat)))
+```{python}
+z_stat  = theta_hat / se_analytic
+p_value = 2 * (1 - stats.norm.cdf(abs(z_stat)))
+decision = "Reject H₀" if p_value < 0.05 else "Fail to reject H₀"
 ```
 
-```{r hypothesis-test-table, echo=FALSE}
-tibble::tibble(
-  Quantity = c("θ̂", "SE(θ̂)", "z-statistic", "p-value (two-sided)", "Decision at α = 0.05"),
-  Value = c(
-    sprintf("%.4f", theta_hat),
-    sprintf("%.4f", se_analytic),
-    sprintf("%.3f", z_stat),
-    sprintf("%.4f", p_value),
-    ifelse(p_value < 0.05, "Reject H₀", "Fail to reject H₀")
-  )
-) |>
-  gt() |>
-  tab_header(title = "Two-sample z-test for θ = π_A − π_B") |>
-  cols_align(align = "center", columns = Value) |>
-  tab_style(
-    style = cell_text(weight = "bold", color = ifelse(p_value < 0.05, "#2ca02c", "#d62728")),
-    locations = cells_body(rows = 5, columns = Value)
-  ) |>
-  tab_options(table.width = pct(70))
+```{python}
+#| echo: false
+test_table = pd.DataFrame({
+    "Quantity": ["θ̂", "SE(θ̂)", "z-statistic", "p-value (two-sided)",
+                 "Decision at α = 0.05"],
+    "Value":    [f"{theta_hat:.4f}",
+                 f"{se_analytic:.4f}",
+                 f"{z_stat:.3f}",
+                 f"{p_value:.4f}",
+                 decision]
+})
+highlight_color = "#2ca02c" if p_value < 0.05 else "#d62728"
+styled_table(test_table, highlight_rows=[4], highlight_color=highlight_color)
 ```
 
-The test statistic is $z = `r sprintf("%.3f", z_stat)`$ with a two-sided p-value of $`r sprintf("%.4f", p_value)`$. That's well below the conventional $\alpha = 0.05$ threshold, so we reject the null hypothesis. The data are inconsistent with the two CTAs producing identical sign-up rates; CTA A appears to be the winner. Notice that this conclusion lines up with the confidence interval from the bootstrap section — the interval excluded zero, which is the same thing as the p-value falling below 0.05.
+The test statistic comes in at $z = `{python} f"{z_stat:.3f}"`$ with a two-sided p-value of $`{python} f"{p_value:.4f}"`$. That's *above* the conventional $\alpha = 0.05$ threshold, so we **fail to reject** the null hypothesis. On this particular sample, we don't have enough evidence to conclude the two CTAs differ — even though, by construction, we know they do.
+
+This is a useful moment to sit with. The underlying truth is $\theta = 0.04$ — there really *is* a four-percentage-point gap between the CTAs — but 1,000 visitors per group, combined with unlucky sampling variation, produced an observed gap small enough that a standard test can't distinguish it from zero. This is a **Type II error** (failing to detect a real effect), and it highlights a point that often gets glossed over: a non-significant result doesn't mean "the CTAs are the same." It means "we didn't have the data to tell." A practical consequence for A/B testing is that you should think hard about your sample size *before* running the test — the required $n$ grows quickly as the effect you want to detect shrinks.
 
 ## The T-Test as a Regression
 
@@ -370,36 +384,32 @@ The coefficient interpretations fall out directly:
 2. $\beta_0 + \beta_1$ is the expected value of $Y_i$ when $D_i = 1$ — the mean of the A group, which estimates $\pi_A$.
 3. So $\beta_1 = \pi_A - \pi_B = \theta$, and the OLS estimate $\hat\beta_1$ is numerically identical to $\hat\theta = \bar{X}_A - \bar{X}_B$.
 
-```{r regression}
-dat <- tibble::tibble(
-  Y = c(X_A, X_B),
-  D = c(rep(1, n), rep(0, n))
-)
+```{python}
+Y = np.concatenate([X_A, X_B])
+D = np.concatenate([np.ones(n), np.zeros(n)])
 
-fit <- lm(Y ~ D, data = dat)
-fit_summary <- summary(fit)
-coef_tab <- fit_summary$coefficients
+X_design = sm.add_constant(D)
+model    = sm.OLS(Y, X_design).fit()
+
+beta_0, beta_1 = model.params
+se_0,   se_1   = model.bse
+t_0,    t_1    = model.tvalues
+p_0,    p_1    = model.pvalues
 ```
 
-```{r regression-table, echo=FALSE}
-tibble::tibble(
-  Term = c("(Intercept)", "D (CTA A indicator)"),
-  Estimate = sprintf("%.4f", coef_tab[, "Estimate"]),
-  `Std. Error` = sprintf("%.4f", coef_tab[, "Std. Error"]),
-  `t value` = sprintf("%.3f", coef_tab[, "t value"]),
-  `p-value` = sprintf("%.4f", coef_tab[, "Pr(>|t|)"])
-) |>
-  gt() |>
-  tab_header(title = "OLS regression: Y ~ D") |>
-  cols_align(align = "center", columns = -Term) |>
-  tab_style(
-    style = cell_text(weight = "bold"),
-    locations = cells_body(rows = 2)
-  ) |>
-  tab_options(table.width = pct(90))
+```{python}
+#| echo: false
+reg_table = pd.DataFrame({
+    "Term":       ["(Intercept)", "D (CTA A indicator)"],
+    "Estimate":   [f"{beta_0:.4f}", f"{beta_1:.4f}"],
+    "Std. Error": [f"{se_0:.4f}",   f"{se_1:.4f}"],
+    "t value":    [f"{t_0:.3f}",    f"{t_1:.3f}"],
+    "p-value":    [f"{p_0:.4f}",    f"{p_1:.4f}"]
+})
+styled_table(reg_table, highlight_rows=[1], highlight_color="#1a56db")
 ```
 
-Compare this to the previous section. The coefficient $\hat\beta_1 = `r sprintf("%.4f", coef_tab[2, "Estimate"])`$ matches our earlier $\hat\theta$ exactly — as it has to. The standard error is *very* close to our two-sample SE but not identical: OLS assumes a single pooled variance across both groups, while the two-sample formula we used earlier allows each group to have its own variance. For balanced designs and similar group proportions those two differ only slightly, and in this case the difference is a few ten-thousandths. The t-statistic and p-value are likewise essentially the same, and we'd reach the same conclusion either way.
+Compare this to the previous section. The coefficient $\hat\beta_1 = `{python} f"{beta_1:.4f}"`$ matches our earlier $\hat\theta$ exactly — as it has to. The standard error is *very* close to our two-sample SE but not identical: OLS assumes a single pooled variance across both groups, while the two-sample formula we used earlier allows each group to have its own variance. For balanced designs and similar group proportions those two differ only slightly, and in this case the difference is a few ten-thousandths. The t-statistic and p-value are likewise essentially the same, and we'd reach the same conclusion either way.
 
 The reason this equivalence is useful — beyond being a neat piece of algebra — is that the regression framework scales. The moment you want to add a control variable, or interact the treatment with some pre-experimental characteristic, or handle three or four treatment arms instead of two, the two-sample test stops being flexible enough but the regression just absorbs the extension cleanly. For simple cases they produce identical inference; for complex cases only one of them keeps working.
 
@@ -413,100 +423,80 @@ A single hypothesis test conducted at $\alpha = 0.05$ has, by construction, a 5%
 
 I'll demonstrate this by constructing a world where the null is known to be true — both CTAs have the same sign-up rate of 0.20 — and seeing how often the peeking procedure falsely declares a difference.
 
-```{r peeking-sim, cache=TRUE}
-set.seed(42)
+```{python}
+rng = np.random.default_rng(42)
 
-n_experiments <- 10000
-peek_points <- seq(100, 1000, by = 100)   # 10 peeks per experiment
-n_per_group <- 1000
-pi_null <- 0.20
-alpha   <- 0.05
+n_experiments = 10_000
+peek_points   = np.arange(100, 1001, 100)   # 10 peeks per experiment
+n_per_group   = 1000
+pi_null       = 0.20
+alpha         = 0.05
 
-any_significant <- logical(n_experiments)
+any_significant = np.zeros(n_experiments, dtype=bool)
 
-for (e in 1:n_experiments) {
-  # One full experiment: 1,000 obs for each group under the null
-  a <- rbinom(n_per_group, 1, pi_null)
-  b <- rbinom(n_per_group, 1, pi_null)
+for e in range(n_experiments):
+    a = rng.binomial(1, pi_null, size=n_per_group)
+    b = rng.binomial(1, pi_null, size=n_per_group)
 
-  sig_at_any_peek <- FALSE
+    for k in peek_points:
+        pa = a[:k].mean()
+        pb = b[:k].mean()
+        se = np.sqrt(pa * (1 - pa) / k + pb * (1 - pb) / k)
 
-  for (k in peek_points) {
-    pa <- mean(a[1:k])
-    pb <- mean(b[1:k])
-    se <- sqrt(pa * (1 - pa) / k + pb * (1 - pb) / k)
+        if se == 0:  # degenerate peek: both groups all 0s or all 1s
+            continue
 
-    # Skip a degenerate peek with zero SE (both groups all 0 or all 1)
-    if (se == 0) next
+        z = (pa - pb) / se
+        p = 2 * (1 - stats.norm.cdf(abs(z)))
 
-    z <- (pa - pb) / se
-    p <- 2 * (1 - pnorm(abs(z)))
+        if p < alpha:
+            any_significant[e] = True
+            break   # boss would have stopped here
 
-    if (p < alpha) {
-      sig_at_any_peek <- TRUE
-      break   # boss would have stopped here
-    }
-  }
-
-  any_significant[e] <- sig_at_any_peek
-}
-
-empirical_fpr <- mean(any_significant)
+empirical_fpr = any_significant.mean()
 ```
 
-```{r peeking-result-table, echo=FALSE}
-tibble::tibble(
-  Quantity = c(
-    "Number of simulated experiments",
-    "True θ (null is true)",
-    "Nominal α per single test",
-    "Number of peeks per experiment",
-    "Empirical false positive rate under peeking",
-    "Inflation factor vs. nominal 5%"
-  ),
-  Value = c(
-    format(n_experiments, big.mark = ","),
-    "0.00",
-    sprintf("%.2f", alpha),
-    as.character(length(peek_points)),
-    sprintf("%.3f", empirical_fpr),
-    sprintf("%.1f×", empirical_fpr / alpha)
-  )
-) |>
-  gt() |>
-  tab_header(title = "Type I error rate when peeking at every 100 observations") |>
-  cols_align(align = "center", columns = Value) |>
-  tab_style(
-    style = cell_text(weight = "bold", color = "#d62728"),
-    locations = cells_body(rows = 5:6)
-  ) |>
-  tab_options(table.width = pct(75))
+```{python}
+#| echo: false
+peek_table = pd.DataFrame({
+    "Quantity": ["Number of simulated experiments",
+                 "True θ (null is true)",
+                 "Nominal α per single test",
+                 "Number of peeks per experiment",
+                 "Empirical false positive rate under peeking",
+                 "Inflation factor vs. nominal 5%"],
+    "Value":    [f"{n_experiments:,}",
+                 "0.00",
+                 f"{alpha:.2f}",
+                 f"{len(peek_points)}",
+                 f"{empirical_fpr:.3f}",
+                 f"{empirical_fpr / alpha:.1f}×"]
+})
+styled_table(peek_table, highlight_rows=[4, 5], highlight_color="#d62728")
 ```
 
-```{r peeking-plot, echo=FALSE, fig.cap="Actual Type I error rate under peeking versus the nominal 5% for a single test."}
-tibble::tibble(
-  kind = c("Single test (nominal)", "Peeking 10 times"),
-  rate = c(alpha, empirical_fpr)
-) |>
-  ggplot(aes(x = reorder(kind, rate), y = rate, fill = kind)) +
-  geom_col(width = 0.55) +
-  geom_text(aes(label = percent(rate, accuracy = 0.1)),
-            vjust = -0.5, size = 4.2, fontface = "bold") +
-  geom_hline(yintercept = alpha, color = col_null,
-             linetype = "dashed", linewidth = 0.5) +
-  scale_y_continuous(labels = percent_format(accuracy = 1),
-                     limits = c(0, max(empirical_fpr, alpha) * 1.3)) +
-  scale_fill_manual(values = c("Single test (nominal)" = col_a,
-                               "Peeking 10 times" = col_null)) +
-  labs(
-    title = "Peeking inflates the false positive rate",
-    subtitle = "Under a true null (π_A = π_B = 0.20), 10,000 simulated experiments",
-    x = NULL, y = "P(at least one false rejection)"
-  ) +
-  theme_post() +
-  theme(legend.position = "none")
+```{python}
+#| echo: false
+#| fig-cap: "Actual Type I error rate under peeking versus the nominal 5% for a single test."
+fig, ax = plt.subplots(figsize=(8, 4.5))
+labels = ["Single test\n(nominal)", "Peeking 10 times"]
+values = [alpha, empirical_fpr]
+colors = [COL_A, COL_NULL]
+bars = ax.bar(labels, values, color=colors, width=0.5, zorder=2)
+ax.axhline(alpha, color=COL_NULL, linestyle="--", linewidth=0.6, zorder=1)
+for bar, v in zip(bars, values):
+    ax.text(bar.get_x() + bar.get_width() / 2,
+            v + 0.005,
+            f"{v*100:.1f}%",
+            ha="center", va="bottom", fontweight="bold", fontsize=11)
+ax.set_ylim(0, max(values) * 1.3)
+ax.set_ylabel("P(at least one false rejection)")
+ax.set_title("Peeking inflates the false positive rate")
+ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda y, _: f"{int(y*100)}%"))
+fig.tight_layout()
+plt.show()
 ```
 
-The nominal false positive rate for a single test is 5%. Under the peeking procedure it climbs to roughly `r percent(empirical_fpr, accuracy = 0.1)` — somewhere in the neighborhood of three times higher. In a world where the two CTAs are genuinely identical, almost one in six experiments run under the boss's protocol would falsely conclude that one CTA is better than the other, purely because the procedure gave random noise ten chances to look like signal instead of one.
+The nominal false positive rate for a single test is 5%. Under the peeking procedure it climbs to roughly `{python} f"{empirical_fpr*100:.1f}%"` — several times higher. In a world where the two CTAs are genuinely identical, almost one in five experiments run under the boss's protocol would falsely conclude that one CTA is better than the other, purely because the procedure gave random noise ten chances to look like signal instead of one.
 
 The practical consequence for A/B testing is uncomfortable but important. If you run your test with a pre-specified sample size of $n$ and analyze it once, the 5% error rate is a real guarantee. If you keep checking as data rolls in and stop the experiment the moment something crosses significance, that guarantee evaporates. There are legitimate tools for dealing with this — sequential testing procedures, alpha-spending functions, always-valid p-values, Bayesian approaches with proper stopping rules — but applying a vanilla z-test ten times and taking the first "win" isn't one of them. The discipline of classical A/B testing is in the pre-specification: decide the sample size, run to completion, and analyze once.
