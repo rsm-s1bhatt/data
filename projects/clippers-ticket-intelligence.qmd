@@ -1,0 +1,60 @@
+---
+title: "Clippers Ticket Intelligence"
+subtitle: "Where current pricing leaves money on the table, and three AI-native plays to close the gap"
+date: "2026-04-22"
+categories: [Sports Analytics, Pricing Strategy, AI/ML]
+---
+
+## How This Started
+
+I was ready to buy Clippers playoff tickets this year. Kawhi was averaging 28, Intuit Dome was looking electric, and I wanted to be there if they made a deep run. Then Steph Curry hit a go-ahead three with 50 seconds left in the play-in and... yeah. Season over.
+
+So instead of spending money on tickets, I spent the weekend analyzing them.
+
+## The Data
+
+I pulled secondary market get-in prices from SeatGeek, TickPick, and Barry's Tickets for Clippers home games during the 2025-26 season. Everything referenced here is publicly available resale data, specifically the cheapest available ticket on a given platform for a given game. These are not official Clippers face values.
+
+## What the Clippers Already Do Well
+
+Before getting into findings, I want to give credit where it's due. The Clippers have been ahead of the curve on pricing for over a decade. They started being publicly transparent about variable and dynamic pricing back in 2013, even putting out fan-facing explainer videos about how it works. Ticketmaster's Pricemaster handles real-time demand-based adjustments for single-game inventory. And programs like The Wall! Buy Back, where season members can return any game ticket for account credit, show the org thinks carefully about protecting member value and reducing renewal friction.
+
+So this isn't about telling them to "do dynamic pricing." They already do, and they do it well. The question I wanted to explore is what the next layer looks like.
+
+## Key Findings
+
+**The opponent spread is massive.** Lakers matchups had a resale get-in around $195. Warriors sat at $98. Wizards games went for as low as $12. That's a 16x spread driven almost entirely by who's visiting. It raises a real question: how much of that variance does the current face-value pricing capture, and how much flows straight to the resale market?
+
+**Day-of-week matters more than you'd think.** Saturday games averaged roughly 3x the get-in price of Tuesday games. Weeknight low-demand matchups consistently showed the lowest resale prices, which suggests some of those games might be overpriced relative to what fans are actually willing to pay.
+
+**Playoff demand is steep but predictable.** Before the Clippers were eliminated in the play-in, secondary market listings showed postseason inventory climbing from $31 at the regular season floor all the way up to $1,493 for a WCF Game 2 ticket. That's a 48x jump. The curve is steep, but it follows a pattern that a predictive model could learn from historical seasons.
+
+## The Bigger Opportunity: The Sales Pipeline
+
+Pricing gets all the attention, but I think the downstream sales funnel is where AI actually compounds the most.
+
+Every NBA team faces the same conversion challenge: **single-game buyer to repeat buyer to partial plan holder to season member.** Season members have the highest lifetime value and the most predictable revenue, but converting a casual fan into a committed member is still mostly manual. Inside sales teams work off broad segment lists, making outbound calls and hoping for the best.
+
+That's where I see three real opportunities.
+
+**1. Predictive face-value pricing.** Train on opponent win percentage, day-of-week, team record, time-of-season, and historical resale spreads to set initial prices that capture more of the market-clearing value. Target: reduce the average resale spread by 20 to 30 percent.
+
+**2. AI-scored sales pipeline.** Score every single-game buyer on upgrade propensity using purchase cadence, section consistency, and spend patterns. Feed the top decile to the sales team as warm leads instead of cold-calling a random list. Target: 2 to 3x conversion rate on outbound calls.
+
+**3. Resale-signal renewal engine.** This is the one I find most interesting. Season members who resell 60 percent or more of their games are showing disengagement before they ever tell the team they're not renewing. That resale data already exists in Ticketmaster's system. Flag those members automatically, generate a personalized retention offer (seat upgrades, flex plans, playoff priority), and intervene upstream. Target: reduce non-renewal by 10 to 15 percent.
+
+## The Deck
+
+I put the full analysis into a 6-slide deck with data, charts, and recommendations.
+
+[Download the slide deck (PDF)](Clippers_Ticket_Intelligence.pdf)
+
+## Tools and Methods
+
+- **Data sources:** SeatGeek, TickPick, Barry's Tickets (publicly available secondary market listings)
+- **Analysis:** Secondary market price comparison by opponent, day-of-week, and postseason round
+- **Concepts applied:** Dynamic pricing theory, churn prediction, sales pipeline optimization, LLM-generated retention strategies
+
+---
+
+*Built by Shivang Bhatt | MS Business Analytics, UC San Diego (Rady) | April 2026*
