@@ -22,5 +22,8 @@
   },
   "projects/clippers-ticket-intelligence.qmd": {
     "clippers-ticket-intelligence.html": "5259c59c"
+  },
+  "posts/ab-testing-cta/angrist-lavy-rdd/angrist-lavy-rdd.qmd": {
+    "angrist-lavy-rdd.html": "2854592f"
   }
 }
