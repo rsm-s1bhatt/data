@@ -1,7 +1,9 @@
 ---
 title: "Does Class Size Matter? Replicating Angrist & Lavy (1999)"
 author: "Shivang Bhatt"
-date: today
+date: 2026-04-23
+description: "Replicating the Maimonides' Rule regression discontinuity design from Angrist & Lavy (1999) using 4th grade Israeli test score data."
+categories: [Causal Inference, RDD, Python, Replication, UCSD Marketing Analytics]
 format:
   html:
     toc: true
