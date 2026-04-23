@@ -1,5 +1,6 @@
 ---
 title: "Does Class Size Matter? Replicating Angrist & Lavy (1999)"
+subtitle: "Using Maimonides' Rule as a Regression Discontinuity Design"
 author: "Shivang Bhatt"
 date: 2026-04-23
 description: "Replicating the Maimonides' Rule regression discontinuity design from Angrist & Lavy (1999) using 4th grade Israeli test score data."
