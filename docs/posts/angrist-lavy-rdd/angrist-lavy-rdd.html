@@ -261,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>tipuach</code> — a disadvantage index (percent of low-income students)</li>
 <li><code>schlcode</code> — school identifier (used for clustering SEs)</li>
 </ul>
-<div id="459c804c" class="cell" data-execution_count="1">
+<div id="1a73d4a2" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -319,7 +319,7 @@ Table 3 discontinuity sample: 415 observations</code></pre>
 <section id="figure-1b-the-sawtooth-pattern" class="level2">
 <h2 class="anchored" data-anchor-id="figure-1b-the-sawtooth-pattern">Figure 1b — The Sawtooth Pattern</h2>
 <p>The first thing to check is whether Maimonides’ Rule actually predicts class size. The plot below shows average actual class size (dots) alongside the rule-predicted class size (line) for each enrollment count. The <strong>sawtooth shape</strong> is the signature of the discontinuity: class sizes climb steadily until enrollment crosses a multiple of 40, then drop sharply as cohorts are split.</p>
-<div id="25063553" class="cell" data-execution_count="2">
+<div id="7d0b9407" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Average actual class size by enrollment count</span></span>
@@ -364,7 +364,7 @@ Table 3 discontinuity sample: 415 observations</code></pre>
 <section id="table-ii-naive-ols-the-biased-baseline" class="level2">
 <h2 class="anchored" data-anchor-id="table-ii-naive-ols-the-biased-baseline">Table II — Naive OLS (The Biased Baseline)</h2>
 <p>Before getting to the RDD, the paper reports naïve OLS regressions of test scores on actual class size. These use the same filtered sample but simply regress scores on <code>classize</code> — no discontinuity, no instrument.</p>
-<div id="71f9681d" class="cell" data-execution_count="3">
+<div id="78985d27" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cluster_ols(formula, data, cluster_var):</span>
@@ -464,7 +464,7 @@ Table 3 discontinuity sample: 415 observations</code></pre>
 </tr>
 </tbody>
 </table>
-<div id="efaee5c5" class="cell" data-execution_count="4">
+<div id="2fd1ab23" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>r7  <span class="op">=</span> cluster_ols(<span class="st">'avgverb ~ func1 + tipuach'</span>,          df_t3,  <span class="st">'schlcode'</span>)</span>
@@ -535,7 +535,7 @@ Table 3 discontinuity sample: 415 observations</code></pre>
 </section>
 <section id="bonus-naive-vs.-rdd-what-changed-and-why" class="level2">
 <h2 class="anchored" data-anchor-id="bonus-naive-vs.-rdd-what-changed-and-why">Bonus: Naive vs.&nbsp;RDD — What Changed and Why</h2>
-<div id="7013fae0" class="cell" data-execution_count="5">
+<div id="e371a5ca" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
