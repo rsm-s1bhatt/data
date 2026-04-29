@@ -249,3 +249,7 @@ The result — **smaller classes raise 4th-grade reading scores** — is one of 
 The reading effect is robust and negative across all three RDD specifications. The math effect is weaker and less precisely estimated — a pattern the authors also find and discuss. Figure 1b confirms that Maimonides' Rule does create sharp, rule-driven variation in class size, validating the design.
 
 The broader lesson is methodological: when a policy rule creates discontinuous variation in the treatment (here, class size), that discontinuity can be exploited to isolate a causal effect that a naïve comparison would badly misstate.
+
+## Conclusion
+
+The regression discontinuity design provides credible evidence that smaller class sizes improve student outcomes. By exploiting the cutoff-based variation from Maimonides' Rule, the analysis isolates a causal effect that naive methods fail to capture.
